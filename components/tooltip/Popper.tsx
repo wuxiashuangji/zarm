@@ -1,4 +1,4 @@
-
+/*eslint-disable*/
 import domUtil from '../utils/dom';
 
 const {
@@ -105,10 +105,7 @@ function getArrayKeyIndex(arr, keyToFind) {
  */
 function isFunction(functionToCheck) {
   const getType = {};
-  return (
-    functionToCheck &&
-    getType.toString.call(functionToCheck) === '[object Function]'
-  );
+  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
 }
 
 /**
@@ -116,12 +113,12 @@ function isFunction(functionToCheck) {
  */
 function getOffsetRect(element) {
   type rect = {
-    width: number,
-    height: number,
-    left: number,
-    top: number,
-    right?: number,
-    bottom?: number,
+    width: number;
+    height: number;
+    left: number;
+    top: number;
+    right?: number;
+    bottom?: number;
   };
   const elementRect: rect = {
     width: element.offsetWidth,
@@ -171,7 +168,7 @@ function Popper(reference, popper, options) {
 /**
  * 销毁
  */
-Popper.prototype.destroy = function () {
+Popper.prototype.destroy = () => {
   this._popper.removeAttribute('x-placement');
   this._popper.style.left = '';
   this._popper.style.position = '';
@@ -188,14 +185,14 @@ Popper.prototype.destroy = function () {
 /**
  * 更新方位，重新计算偏移量
  */
-Popper.prototype.update = function () {
-  type dataType = {
-    placement?: string,
-    _originalPlacement?: string,
-    offsets?: object,
-    boundaries?: object,
-  };
-  let data: dataType = {};
+Popper.prototype.update = () => {
+  interface DataType {
+    placement?: string;
+    _originalPlacement?: string;
+    offsets?: object;
+    boundaries?: object;
+  }
+  let data: DataType = {};
 
   data.placement = this._options.placement;
   data._originalPlacement = this._options.placement;
@@ -217,23 +214,22 @@ Popper.prototype.update = function () {
 /**
  * 判断气泡框应该使用什么定位
  */
-Popper.prototype._getPosition = function (_, reference) {
+Popper.prototype._getPosition = (_, reference) => {
   const isParentFixed = isFixed(reference);
   return isParentFixed ? 'fixed' : 'absolute';
-  return 'absolute';
 };
 
 /**
  * 根据方位计算气泡框和reference相对气泡框定位父元素的left，top等值
  */
-Popper.prototype._getOffsets = function (popper, reference, placement) {
+Popper.prototype._getOffsets = (popper, reference, placement) => {
   placement = placement.split('-')[0];
   type offset = {
-    position?: string,
-    top?: number,
-    left?: number,
-    width?: number,
-    height?: number,
+    position?: string;
+    top?: number;
+    left?: number;
+    width?: number;
+    height?: number;
   };
   const popperOffsets: offset = {};
 
