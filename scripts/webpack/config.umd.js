@@ -4,21 +4,21 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const config = require('./config.base');
-const version = require('../../package.json').version;
+const { version, name, author, repository } = require('../../package.json');
 
 const env = process.env.NODE_ENV;
 
 config.devtool = 'source-map';
 
 config.entry = {
-  zarm: [
+  [name]: [
     './components/index.js',
     './styles/index.scss',
   ],
 };
 
 config.output = {
-  library: 'Zarm',
+  library: name,
   libraryTarget: 'umd',
   path: path.resolve(__dirname, '../../dist'),
   filename: '[name].js',
@@ -71,12 +71,12 @@ if (env === 'production') {
   }));
 
   config.plugins.push(new webpack.BannerPlugin(`
-  Zarm v${version}
+  ${name} v${version}
 
-  Github: https://github.com/ZhonganTechENG/zarm
- 
-  Copyright (c) 2013-present, ZhonganTech, Inc.
- 
+  Github: ${repository.url}
+
+  Copyright (c) 2013-present, ${author}, Inc.
+
   This source code is licensed under the MIT license found in the
   LICENSE file in the root directory of this source tree.
   `));

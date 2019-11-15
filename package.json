@@ -1,6 +1,7 @@
 {
   "name": "zarm",
   "version": "1.1.1",
+  "author": "zarm",
   "description": "基于 React 的移动端UI库",
   "tags": [
     "zarm",
@@ -24,7 +25,10 @@
     "mobile"
   ],
   "license": "MIT",
-  "repository": "git://github.com/ZhonganTechENG/zarm",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ZhonganTechENG/zarm"
+  },
   "bugs": {
     "url": "https://github.com/ZhonganTechENG/zarm/issues"
   },
