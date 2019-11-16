@@ -56,6 +56,7 @@ class Page extends PureComponent {
               <Cell hasArrow title="指示器 Spinner" onClick={() => history.push('/spinner')} />
               <Cell hasArrow title="图片轮播 Swipe" onClick={() => history.push('/swipe')} />
               <Cell hasArrow title="标签页 Tab" onClick={() => history.push('/tab')} />
+              <Cell hasArrow title="表格 Table" onClick={() => history.push('/table')} />
             </Panel.Body>
           </Panel>
         </main>

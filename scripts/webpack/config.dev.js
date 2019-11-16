@@ -1,56 +1,82 @@
+/**
+ * Created by fed on 2017/8/24.
+ */
+const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const config = require('./config.base');
+const config = require('./config.base.js');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-config.devtool = 'cheap-module-eval-source-map';
-
-config.entry = {
-  index: ['./examples/index.js'],
-  common: ['react', 'react-dom', 'react-router-dom'],
-};
-
-config.plugins.push(new ExtractTextPlugin({
-  filename: 'stylesheet/[name].css',
-  allChunks: true,
-}));
-
-config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-  name: ['common', 'manifest'],
-}));
-
-config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-  names: Object.keys(config.entry),
-  async: true,
-  children: true,
-  minChunks: 3,
-}));
-
-config.plugins.push(new webpack.HotModuleReplacementPlugin());
-config.plugins.push(new webpack.DefinePlugin({
-  'process.env.NODE_ENV': JSON.stringify('development'),
-  __DEBUG__: true,
-}));
-
-Object.keys(config.entry).forEach((key) => {
-  if (key === 'common') return;
-  config.plugins.push(new HtmlWebpackPlugin({
-    template: `./examples/${key}.html`,
-    filename: `${key}.html`,
-    chunks: ['common', 'manifest', key],
-  }));
+module.exports = Object.assign({}, config, {
+  mode: 'development',
+  entry: {
+    index: ['./examples/index.js'],
+    common: ['react', 'react-dom', 'react-router-dom'],
+  },
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].[chunkhash].chunk.js',
+    publicPath: '/',
+  },
+  devtool: 'cheap-module-source-map',
+  externals: {
+    'babel-polyfill': 'undefined',
+    react: 'React',
+    'react-dom': 'ReactDOM',
+  },
+  module: {
+    rules: [
+      ...config.module.rules,
+    ],
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      process: {
+        env: {
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+        },
+        version: '"v10.0.0"',
+      },
+    }),
+    new HtmlWebpackPlugin({
+      template: './examples/index.html',
+      filename: 'index.html',
+      chunks: ['common', 'manifest', 'index'],
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[name].css',
+    }),
+  ],
+  devServer: {
+    host: '0.0.0.0',
+    port: 8080,
+    useLocalIp: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    proxy: {
+      // '/api': {
+      //   target: { host: proxyInfo[process.env.NODE_ENV].host, protocol: 'http' },
+      //   pathRewrite: { '^/api': '' },
+      //   secure: true,
+      //   changeOrigin: true,
+      //   https: true,
+      //   headers: {
+      //     Host: proxyInfo[process.env.NODE_ENV].host,
+      //   },
+      // },
+      // '/srmApi': {
+      //   target: { host: proxyInfo[process.env.NODE_ENV].srmHost, protocol: 'http' },
+      //   pathRewrite: { '^/srmApi': '' },
+      //   secure: true,
+      //   changeOrigin: true,
+      //   headers: {
+      //     Host: proxyInfo[process.env.NODE_ENV].srmHost,
+      //   },
+      // },
+    },
+  },
 });
-
-config.module.rules[0].use[0].options.presets.push('react-hmre');
-
-config.devServer = {
-  publicPath: config.output.publicPath,
-  host: '0.0.0.0',
-  port: 3000,
-  compress: true,
-  noInfo: true,
-  inline: true,
-  hot: true,
-};
-
-module.exports = config;

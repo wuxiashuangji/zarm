@@ -1,22 +1,10 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const BROWSERS = [
-  'last 3 versions',
-  'ie >= 10',
-  'ie_mob >= 10',
-  'ff >= 30',
-  'chrome >= 34',
-  'safari >= 6',
-  'opera >= 12.1',
-  'ios >= 6',
-  'android >= 4.4',
-  'bb >= 10',
-  'and_uc 9.9',
-];
+const sass = require('sass');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyWebpackPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
-
   output: {
     path: path.resolve(__dirname, '../../assets'),
     filename: 'js/[name].js',
@@ -32,75 +20,43 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
-            options: {
-              presets: [
-                [
-                  'env',
-                  {
-                    modules: false,
-                    targets: {
-                      browsers: BROWSERS,
-                    },
-                  },
-                ],
-                'react',
-                'stage-0',
-              ],
-              plugins: [
-                'transform-runtime',
-              ],
-            },
           },
         ],
       },
       {
-        test: /\.css$/,
+        test: /\.(css|scss)$/,
         exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader?importLoaders=1',
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development',
             },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [
-                  require('autoprefixer')({
-                    browsers: BROWSERS,
-                  }),
-                ],
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: 'local',
+                localIdentName: '[local]--[hash:base64]',
+                context: path.resolve(__dirname, 'src'),
               },
+              sourceMap: true,
+              importLoaders: 2,
             },
-          ],
-        }),
-      },
-      {
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader?importLoaders=1',
+          },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              implementation: sass,
             },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [
-                  require('autoprefixer')({
-                    browsers: BROWSERS,
-                  }),
-                ],
-              },
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-                outputStyle: 'compact',
-              },
-            },
-          ],
-        }),
+          },
+        ],
+
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
@@ -122,10 +78,17 @@ module.exports = {
       },
     ],
   },
-
   resolve: {
     extensions: [' ', '.js', '.jsx', '.scss'],
   },
-
+  optimization: {
+    minimizer: [
+      new UglifyWebpackPlugin({
+        cache: true,
+        parallel: true,
+      }),
+      new OptimizeCSSAssetsPlugin({}),
+    ],
+  },
   plugins: [],
 };

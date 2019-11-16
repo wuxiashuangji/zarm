@@ -62,6 +62,7 @@ class App extends Component {
         <Route path="/spinner" component={AsyncComponent(() => import('../pages/SpinnerPage'))} />
         <Route path="/swipe" component={AsyncComponent(() => import('../pages/SwipePage'))} />
         <Route path="/tab" component={AsyncComponent(() => import('../pages/TabPage'))} />
+        <Route path="/table" component={AsyncComponent(() => import('../pages/TablePage'))} />
 
         <Route component={AsyncComponent(() => import('../pages/NotFoundPage'))} />
       </Switch>
