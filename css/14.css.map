@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./examples/styles/components/Header.scss","webpack:///./examples/styles/pages/PanelPage.scss"],"names":[],"mappings":"AAAA,OAAO,aAAa,e;ACApB,iBAAiB,kB","file":"css/14.css","sourcesContent":["header{padding:15px;font-size:16px}",".panel-page .box{padding:10px 15px}"],"sourceRoot":""}

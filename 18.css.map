@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///./examples/styles/components/Header.scss","webpack:///./examples/styles/pages/RadioPage.scss"],"names":[],"mappings":"AAAA,OAAO,aAAa,e;ACApB,uBAAuB,aAAa,gB","file":"18.css","sourcesContent":["header{padding:15px;font-size:16px}",".radio-page .block-box{padding:10px;background:#fff}"],"sourceRoot":""}
