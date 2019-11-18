@@ -94,8 +94,8 @@ class Table extends React.Component {
   }
   // wheel 处理
   wheelHandler(e) {
-    // e.preventDefault();
-    // e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
     const {
       pcSpeed,
       scrollX, scrollY,
@@ -206,13 +206,14 @@ class Table extends React.Component {
       empty,
       style,
       keygen,
+      prefixCls,
     } = this.props;
     const colgroup = (
       <colgroup>
         {
           columns.map(item => (
             <col
-              key={getUid()}
+              // key={getUid()}
               style={{
                 width: item.width,
               }}
@@ -356,12 +357,12 @@ class Table extends React.Component {
 
     return (
       <div
-        className={`z-table-container ${className || ''}`}
+        className={classnames(`${prefixCls}-container ${className || ''}`)}
         style={style || {}}>
         <div
-          className="z-table-wrapper"
+          className={classnames(`${prefixCls}-wrapper`)}
           ref={e => this.tableWrapper = e}>
-          <div className="z-table-header">
+          <div className={classnames(`${prefixCls}-header`)}>
             <table
               ref={(e) => {
                 this.tableHeader = e;
@@ -384,7 +385,7 @@ class Table extends React.Component {
           </div>
           {
             isArray(data) && <div
-              className="z-table-body"
+              className={classnames(`${prefixCls}-body`)}
               ref={e => this.tableBody = e}
               style={{
                 transform: `translate3d(${scrollX}px, ${scrollY}px, 0)`,
@@ -399,11 +400,11 @@ class Table extends React.Component {
                     <tbody >
                       {
                         data.map((infoItem, infoIndex) => (
-                          <tr key={(isFunc(keygen) && keygen(infoItem)) || infoItem[keygen] || getUid()}>
+                          <tr key={(isFunc(keygen) && keygen(infoItem)) || infoItem[keygen]}>
                             {
                               columns.map((item, index) => (
                                 <Td
-                                  key={getUid()}
+                                  // key={getUid()}
                                   column={item}
                                   columnIndex={index}
                                   setClassName={setClassName}
@@ -433,14 +434,15 @@ class Table extends React.Component {
                 zIndex: 0,
               }}
               ref={e => this.tableBody = e}
-              className="empty-container">
+              className={classnames(`${prefixCls}-empty`)}>
               {empty || <span>无数据</span>}
             </div>
           )
         }
         {
           loading && (
-            <div className="z-table-loading">
+            <div
+              className={classnames(`${prefixCls}-loading`)}>
               <div className="loader" />
             </div>
           )
@@ -452,6 +454,7 @@ class Table extends React.Component {
 
 
 Table.propTypes = {
+  prefixCls: PropTypes.string,
   className: PropTypes.string,
   empty: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   loading: PropTypes.bool,
@@ -460,6 +463,17 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   fixed: PropTypes.string,
   keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+};
+
+Table.defaultProps = {
+  prefixCls: 'za-table',
+  theme: 'primary',
+  data: [],
+  columns: [],
+  style: {},
+  fixed: '',
+  loading: true,
+  className: '',
 };
 
 export default Table;

@@ -4,7 +4,6 @@ import classnames from 'classnames';
 import Popup from '../Popup';
 
 class ActionSheet extends PureComponent {
-
   render() {
     const { prefixCls, className, shape, visible, onMaskClick, actions, cancelText, onCancel } = this.props;
 
@@ -32,7 +31,7 @@ class ActionSheet extends PureComponent {
                 <div className={`${prefixCls}-cancel`}>
                   <a className={`${prefixCls}-btn`} onClick={onCancel}>{cancelText}</a>
                 </div>
-                )
+              )
               : null
           }
         </div>

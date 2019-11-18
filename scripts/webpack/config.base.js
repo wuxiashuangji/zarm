@@ -4,6 +4,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyWebpackPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+const devMode = process.env.NODE_ENV !== 'production';
+
 module.exports = {
   output: {
     path: path.resolve(__dirname, '../../assets'),
@@ -20,6 +22,9 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
           },
         ],
       },
@@ -28,22 +33,10 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === 'development',
-            },
+            loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           },
           {
             loader: 'css-loader',
-            options: {
-              modules: {
-                mode: 'local',
-                localIdentName: '[local]--[hash:base64]',
-                context: path.resolve(__dirname, 'src'),
-              },
-              sourceMap: true,
-              importLoaders: 2,
-            },
           },
           {
             loader: 'postcss-loader',
@@ -53,6 +46,9 @@ module.exports = {
             options: {
               sourceMap: true,
               implementation: sass,
+              modifyVars: {
+                'za-': process.env.SO_PREFIX || 'zorl',
+              },
             },
           },
         ],

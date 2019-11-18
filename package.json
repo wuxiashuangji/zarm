@@ -120,8 +120,7 @@
     }
   },
   "lint-staged": {
-    "{components,examples}/**/*.{js}": "lint:js",
-    "{styles,examples}/**/*.css": "lint:style"
+    "{styles,examples}/**/*.scss": "lint:style"
   },
   "pre-commit": [
     "lint-staged"

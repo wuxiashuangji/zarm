@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import '../styles/components/Container';
+import '../styles/components/Container.scss';
 
 class Container extends Component {
-
   render() {
     const { className, children } = this.props;
 

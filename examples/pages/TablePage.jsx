@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Table } from '../../components';
-import '../styles/pages/TablePage';
+import { Table, Panel, Tab } from '../../components';
+import Container from '../components/Container';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import '../styles/pages/TablePage.scss';
 
 class TabPage extends Component {
   constructor(props) {
@@ -24,7 +27,53 @@ class TabPage extends Component {
         city: `广州-${index}`,
         index,
       }));
-    const columns = [
+    const columns1 = [
+      {
+        title: 'id', render: 'id', width: 50,
+      },
+      {
+        title: '姓', render: 'firstName', width: 100,
+      },
+      {
+        title: '名', render: 'lastName', width: 100,
+      },
+      {
+        title: '昵称', render: () => 'nickname', width: 100,
+      },
+      {
+        title: '市', render: 'city', width: 100,
+      },
+      {
+        title: '工作', render: 'job', width: 100,
+      },
+      {
+        title: '住址1', render: 'address', width: 100,
+      },
+    ];
+    const columns2 = [
+      {
+        title: 'id', render: 'id', width: 50,
+      },
+      {
+        title: '姓', render: 'firstName', width: 100, group: ['基本信息', '名字'],
+      },
+      {
+        title: '名', render: 'lastName', width: 100, group: ['基本信息', '名字'],
+      },
+      {
+        title: '昵称', render: () => 'nickname', width: 100,
+      },
+      {
+        title: '市', render: 'city', width: 100, group: ['户籍'],
+      },
+      {
+        title: '工作', render: 'job', width: 100, group: ['户籍'],
+      },
+      {
+        title: '住址1', render: 'address', width: 100,
+      },
+    ];
+    const columns3 = [
       {
         title: 'id', render: 'id', width: 50, fixed: 'left',
       },
@@ -49,39 +98,54 @@ class TabPage extends Component {
     ];
 
     return (
-      <div
+      <Container
         className="tab-page">
         <div style={{ height: '20px' }} />
-        <button
-          onClick={() => this.setState({
-            show: !show,
-          })}
-          style={
-            {
-              margin: '10px',
-              border: '1px solid grey',
-              padding: '5px',
-              borderRadius: '5px',
-              background: 'white',
-            }
-          }>
-          {`${!show ? '显示' : '隐藏'}`} table组件
-        </button>
+        <Header title="表格页 Table" />
         <main >
-          {
-            show && (
-              <Table
-                columns={columns}
-                data={info}
-                keygen="id"
-                loading={false}
-                style={{ width: '100%', maxHeight: '300px' }}
-                {...this.props}
-                />
-            )
-          }
+          <Panel>
+            <Panel.Header title="基本" />
+            <Panel.Body>
+              {
+                <Table columns={columns1} data={info} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }}{...this.props} />
+              }
+            </Panel.Body>
+          </Panel>
+          <Panel>
+            <Panel.Header title="表头合并" />
+            <Panel.Body>
+              {
+                <Table columns={columns2} data={info} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }}{...this.props} />
+              }
+            </Panel.Body>
+          </Panel>
+          <Panel>
+            <Panel.Header title="固定列" />
+            <Panel.Body>
+              {
+                <Table columns={columns3} data={info} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }}{...this.props} />
+              }
+            </Panel.Body>
+          </Panel>
+          <Panel>
+            <Panel.Header title="空数据" />
+            <Panel.Body>
+              {
+                <Table columns={columns3} data={[]} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }}{...this.props} />
+              }
+            </Panel.Body>
+          </Panel>
+          <Panel>
+            <Panel.Header title="数据加载-loading" />
+            <Panel.Body>
+              {
+                <Table columns={columns1} data={[]} keygen="id" loading style={{ width: '100%', maxHeight: '300px' }}{...this.props} />
+              }
+            </Panel.Body>
+          </Panel>
         </main>
-      </div>
+        <Footer />
+      </Container>
     );
   }
 }

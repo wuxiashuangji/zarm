@@ -45,15 +45,12 @@ module.exports = Object.assign({}, config, {
       filename: 'index.html',
       chunks: ['common', 'manifest', 'index'],
     }),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[name].css',
-    }),
   ],
   devServer: {
     host: '0.0.0.0',
     port: 8080,
     useLocalIp: true,
+    open: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
