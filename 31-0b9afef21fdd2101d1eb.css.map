@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./examples/styles/pages/ProgressPage.scss"],"names":[],"mappings":"AAAA,yBAAyB,YAAY,kBAAkB,iCAAiC,e","file":"31-0b9afef21fdd2101d1eb.css","sourcesContent":[".progress-page .progress{margin:15px;text-align:center}.progress-page .progress-percent{font-size:14px}"],"sourceRoot":""}
