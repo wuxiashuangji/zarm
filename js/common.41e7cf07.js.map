@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///external \"React\"","webpack:///external \"ReactDOM\""],"names":["module","exports","React","ReactDOM"],"mappings":"yEAAAA,EAAOC,QAAUC,O,iECAjBF,EAAOC,QAAUE,W","file":"js/common.41e7cf07.js","sourcesContent":["module.exports = React;","module.exports = ReactDOM;"],"sourceRoot":""}
