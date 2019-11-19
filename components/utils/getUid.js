@@ -4,6 +4,4 @@ const getUid = () => {
   return count;
 };
 
-export default {
-  getUid,
-};
+export default getUid;

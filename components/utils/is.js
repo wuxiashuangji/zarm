@@ -66,7 +66,7 @@ const os = function () {
   };
 };
 
-export default {
+export {
   isFunc,
   isString,
   isArray,

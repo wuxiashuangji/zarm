@@ -2,12 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isArray, isFunc } from '../utils/is';
-import { getUid } from '../utils/getUid';
 import '../../styles/components/Table.scss';
 import Thead from './thead';
 import Td from './td';
 
 class Table extends React.Component {
+
+  static preventHandler($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
+
   constructor(props) {
     super(props);
     this.tableHeader = null;
@@ -44,12 +49,14 @@ class Table extends React.Component {
   componentDidMount() {
     this.setTableWidth();
     this.tableWrapper.addEventListener('wheel', (e) => {
+      Table.preventHandler(e);
       this.wheelHandler(e);
     });
     this.tableWrapper.addEventListener('touchstart', (e) => {
       this.touchstartHandler(e);
     }, true);
     this.tableWrapper.addEventListener('touchmove', (e) => {
+      Table.preventHandler(e);
       this.touchmoveHandler(e);
     }, true);
     this.tableWrapper.addEventListener('touchend', (e) => {
@@ -58,7 +65,6 @@ class Table extends React.Component {
     window.addEventListener('resize', () => {
       requestAnimationFrame(() => {
         this.setTableWidth();
-        this.forceUpdate();
       });
     });
   }
@@ -79,13 +85,17 @@ class Table extends React.Component {
     this.unMountHanler();
   }
 
-  setTableWidth() {
+  setTableWidth(callback) {
     this.setState({
       tableBodyHeight: this.getRect('tableBody', 'height'),
       tableHeaderWidth: this.getRect('tableHeader', 'width'),
       tableHeaderHeight: this.getRect('tableHeader', 'height'),
-      wrapperHeight: this.getRect('tableWrapper', 'height'),
-      wrapperWidth: this.getRect('tableWrapper', 'width'),
+      wrapperHeight: this.getRect('tableWrapper', 'height') - 2, // 2 border 高度
+      wrapperWidth: this.getRect('tableWrapper', 'width') - 2, // 2 border 宽度
+      scrollX: 0,
+      scrollY: 0,
+    }, () => {
+      isFunc() && callback();
     });
   }
 
@@ -96,8 +106,6 @@ class Table extends React.Component {
 
   // wheel 处理
   wheelHandler(e) {
-    e.preventDefault();
-    e.stopPropagation();
     const {
       pcSpeed,
       scrollX, scrollY,
@@ -202,6 +210,11 @@ class Table extends React.Component {
     });
   }
 
+  bindElement(key, value) {
+    this[key] = value;
+  }
+
+
   render() {
     const {
       columns,
@@ -212,20 +225,6 @@ class Table extends React.Component {
       keygen,
       prefixCls,
     } = this.props;
-    const colgroup = (
-      <colgroup>
-        {
-          columns.map((item) => (
-            <col
-              // key={getUid()}
-              style={{
-                width: item.width,
-              }}
-              />
-          ))
-        }
-      </colgroup>
-    );
     const {
       scrollX,
       scrollY,
@@ -352,6 +351,21 @@ class Table extends React.Component {
     };
     // 获取表头的rows;
     const headRows = getRows(columns);
+    // 表格单元的长度设置
+    const colgroup = (
+      <colgroup>
+        {
+          columns.map((item, index) => (
+            <col
+              key={`${index}`}
+              style={{
+                width: item.width,
+              }}
+              />
+          ))
+        }
+      </colgroup>
+    );
 
     return (
       <div
@@ -359,12 +373,10 @@ class Table extends React.Component {
         style={style || {}}>
         <div
           className={classnames(`${prefixCls}-wrapper`)}
-          ref={(e) => this.tableWrapper = e}>
+          ref={(e) => this.bindElement('tableWrapper', e)}>
           <div className={classnames(`${prefixCls}-header`)}>
             <table
-              ref={(e) => {
-                this.tableHeader = e;
-              }}
+              ref={(e) => this.bindElement('tableHeader', e)}
               style={{
                 transform: `translate3d(${scrollX}px, ${0}px, 0)`,
                 zIndex: 0,
@@ -385,7 +397,7 @@ class Table extends React.Component {
             isArray(data) && (
             <div
               className={classnames(`${prefixCls}-body`)}
-              ref={(e) => this.tableBody = e}
+              ref={(e) => this.bindElement('tableBody', e)}
               style={{
                 transform: `translate3d(${scrollX}px, ${scrollY}px, 0)`,
                 zIndex: 0,
@@ -399,11 +411,11 @@ class Table extends React.Component {
                     <tbody>
                       {
                         data.map((infoItem, infoIndex) => (
-                          <tr key={(isFunc(keygen) && keygen(infoItem)) || infoItem[keygen]}>
+                          <tr key={(isFunc(keygen) && keygen(infoItem)) || infoItem[keygen] || `${infoIndex}`}>
                             {
                               columns.map((item, index) => (
                                 <Td
-                                  // key={getUid()}
+                                  key={`${infoIndex}-${index}`}
                                   column={item}
                                   columnIndex={index}
                                   setClassName={setClassName}
@@ -433,7 +445,7 @@ class Table extends React.Component {
                 width: '100%',
                 zIndex: 0,
               }}
-              ref={(e) => this.tableBody = e}
+              ref={(e) => this.bindElement('tableBody', e)}
               className={classnames(`${prefixCls}-empty`)}>
               {empty || <span>无数据</span>}
             </div>
