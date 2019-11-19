@@ -39,7 +39,9 @@ class Switch extends PureComponent {
   }
 
   render() {
-    const { prefixCls, className, theme, disabled } = this.props;
+    const {
+      prefixCls, className, theme, disabled,
+    } = this.props;
     const { checked } = this.state;
 
     const cls = classnames(`${prefixCls}`, className, {

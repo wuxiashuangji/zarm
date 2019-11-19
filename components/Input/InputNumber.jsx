@@ -12,7 +12,9 @@ class InputNumber extends PureComponent {
   }
 
   render() {
-    const { prefixCls, className, disabled, ...others } = this.props;
+    const {
+      prefixCls, className, disabled, ...others
+    } = this.props;
     const cls = classnames(prefixCls, `${prefixCls}-number`, className, disabled);
 
     return (

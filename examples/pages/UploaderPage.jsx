@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Container from '../components/Container';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Panel, Uploader, Icon, Toast, Badge } from '../../components';
+import {
+  Panel, Uploader, Icon, Toast, Badge,
+} from '../../components';
 import '../styles/pages/UploaderPage.scss';
 
 const MAX_FILES_COUNT = 5;
@@ -24,7 +26,7 @@ class UploaderPage extends Component {
       toast: {
         visible: false,
         onMaskClick: () => {
-          const toast = this.state.toast;
+          const { toast } = this.state;
           toast.visible = false;
           this.setState({ toast });
         },

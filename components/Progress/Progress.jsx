@@ -6,7 +6,9 @@ import Spinner from '../Spinner';
 class Progress extends PureComponent {
 
   render() {
-    const { prefixCls, className, theme, shape, strokeWidth, percent, children, ...others } = this.props;
+    const {
+      prefixCls, className, theme, shape, strokeWidth, percent, children, ...others
+    } = this.props;
 
     const cls = classnames(`${prefixCls}`, className, {
       [`theme-${theme}`]: !!theme,

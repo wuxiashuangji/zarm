@@ -12,8 +12,8 @@ export default function changeImageSize(img, quality, fileType) {
 
   // const MAX_WIDTH = 800;
   // const MAX_HEIGHT = 600;
-  const width = img.width;
-  const height = img.height;
+  const { width } = img;
+  const { height } = img;
 
   // if (width > height) {
   //   if (width > MAX_WIDTH) {

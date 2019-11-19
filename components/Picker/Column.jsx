@@ -151,7 +151,7 @@ class Column extends Component {
         <div
           style={itemStyle}
           className={selectedValue === item[valueMember] ? selectedItemClassName : itemClassName}
-          key={item[valueMember]} >
+          key={item[valueMember]}>
           {item[displayMember]}
         </div>
       );
@@ -162,7 +162,7 @@ class Column extends Component {
     };
     return (
       <div
-        className={classNames(pickerCls)} >
+        className={classNames(pickerCls)}>
         <div className={`${prefixCls}-cascader-indicator`} ref={(indicator) => { this.indicator = indicator; }} style={indicatorStyle} />
         <div className={`${prefixCls}-cascader-content`} ref={(content) => { this.content = content; }}>
           {items}

@@ -144,9 +144,9 @@ class Page extends Component {
                   value={diy.value}
                   valueMember="code"
                   displayMember="name"
-                  displayRender={selected => selected.map(item => item.name).join('/')}
+                  displayRender={(selected) => selected.map((item) => item.name).join('/')}
                   onOk={(selected) => {
-                    diy.value = selected.map(item => item.code);
+                    diy.value = selected.map((item) => item.code);
                     this.setState({
                       diy,
                     });
@@ -226,7 +226,7 @@ class Page extends Component {
               <Cell title="级联选择">
                 <Picker.Stack
                   dataSource={District}
-                  displayRender={selected => selected.map(item => item.label).join('-')}
+                  displayRender={(selected) => selected.map((item) => item.label).join('-')}
                   />
               </Cell>
 

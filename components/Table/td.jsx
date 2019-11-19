@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import assign from 'object-assign';
-import { isFunc } from './../utils/is';
-import './../../styles/components/Table.scss';
+import { isFunc } from '../utils/is';
+import '../../styles/components/Table.scss';
 
 
 class Td extends PureComponent {
   constructor(props) {
     super(props);
   }
+
   render() {
     const {
       columns, setClassName, leftScroll, rightScroll,
@@ -34,7 +35,8 @@ class Td extends PureComponent {
               transform: `translate3d(-${(rightScroll)}px, 0px, 0)`,
               zIndex: columnIndex,
             }
-          )}>
+          )
+}>
         {
           isFunc(column.render) ? column.render(renderData, renderIndex) : renderData[column.render]
         }

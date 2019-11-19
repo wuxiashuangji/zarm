@@ -7,7 +7,9 @@ const diameter = 62;
 class Spinner extends PureComponent {
 
   render() {
-    const { prefixCls, className, theme, size, percent, strokeWidth } = this.props;
+    const {
+      prefixCls, className, theme, size, percent, strokeWidth,
+    } = this.props;
 
     const cls = classnames(`${prefixCls}`, className, {
       [`theme-${theme}`]: !!theme,

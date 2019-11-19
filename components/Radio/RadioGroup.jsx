@@ -49,7 +49,9 @@ class RadioGroup extends PureComponent {
   }
 
   render() {
-    const { prefixCls, className, theme, shape, type, block, disabled, compact, children } = this.props;
+    const {
+      prefixCls, className, theme, shape, type, block, disabled, compact, children,
+    } = this.props;
 
     const items = React.Children.map(children, (element, index) => {
       return cloneElement(element, {

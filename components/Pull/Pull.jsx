@@ -7,20 +7,20 @@ import Spinner from '../Spinner';
 import Icon from '../Icon';
 
 const REFRESH_STATE = {
-  normal: 0,   // 普通
-  pull: 1,     // 下拉状态（未满足刷新条件）
-  drop: 2,     // 释放立即刷新（满足刷新条件）
-  loading: 3,  // 加载中
-  success: 4,  // 加载成功
-  failure: 5,  // 加载失败
+  normal: 0, // 普通
+  pull: 1, // 下拉状态（未满足刷新条件）
+  drop: 2, // 释放立即刷新（满足刷新条件）
+  loading: 3, // 加载中
+  success: 4, // 加载成功
+  failure: 5, // 加载失败
 };
 
 const LOAD_STATE = {
-  normal: 0,   // 普通
-  abort: 1,    // 中止
-  loading: 2,  // 加载中
-  success: 3,  // 加载成功
-  failure: 4,  // 加载失败
+  normal: 0, // 普通
+  abort: 1, // 中止
+  loading: 2, // 加载中
+  success: 3, // 加载成功
+  failure: 4, // 加载失败
   complete: 5, // 加载完成（无新数据）
 };
 
@@ -62,9 +62,9 @@ class Pull extends PureComponent {
     const { onLoad, loadDistance } = this.props;
     if (!onLoad) return;
 
-    const bottom = this.pull.getBoundingClientRect().bottom;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
+    const { bottom } = this.pull.getBoundingClientRect();
+    const { scrollHeight } = document.documentElement;
+    const { clientHeight } = document.documentElement;
 
     if (scrollHeight <= clientHeight) return;
 
@@ -186,7 +186,9 @@ class Pull extends PureComponent {
    * 渲染刷新节点
    */
   renderRefresh = () => {
-    const { prefixCls, refreshInitDistance, refreshDistance, refreshRender } = this.props;
+    const {
+      prefixCls, refreshInitDistance, refreshDistance, refreshRender,
+    } = this.props;
     const { refreshState, offsetY } = this.state;
 
     let percent = 0;
@@ -284,7 +286,9 @@ class Pull extends PureComponent {
 
   render() {
     const { prefixCls, className, children } = this.props;
-    const { offsetY, animationDuration, refreshState, loadState } = this.state;
+    const {
+      offsetY, animationDuration, refreshState, loadState,
+    } = this.state;
     const cls = classnames(`${prefixCls}`, className);
 
     const refreshCls = classnames(`${prefixCls}-refresh`, {

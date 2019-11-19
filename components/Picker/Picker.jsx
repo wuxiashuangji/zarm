@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { arrayTreeFilter, formatToInit, formatBackToObject, isArray, hasChildrenObject } from './utils';
+import {
+  arrayTreeFilter, formatToInit, formatBackToObject, isArray, hasChildrenObject,
+} from './utils';
 import ColumnGroup from './ColumnGroup';
 import Cascader from './Cascader';
 import Popup from '../Popup';
@@ -112,7 +114,7 @@ class Picker extends Component {
   }
 
   getInitValue() {
-    const data = this.state.data;
+    const { data } = this.state;
     const { valueMember } = this.props;
 
     const { value } = this.state;
@@ -121,7 +123,7 @@ class Picker extends Component {
       if (this.state.cascade) {
         return formatToInit(data[0], valueMember, this.props.cols);
       }
-      return data.map(d => (d[0][valueMember]));
+      return data.map((d) => (d[0][valueMember]));
     }
 
     return value;
@@ -160,7 +162,9 @@ class Picker extends Component {
   }
 
   render() {
-    const { prefixCls, disabled, className, cancelText, okText, title, placeholder, valueMember, displayMember, displayAddon } = this.props;
+    const {
+      prefixCls, disabled, className, cancelText, okText, title, placeholder, valueMember, displayMember, displayAddon,
+    } = this.props;
     const { data, value } = this.state;
 
     let PickerCol = null;
@@ -189,7 +193,7 @@ class Picker extends Component {
           cols={this.props.cols}
           displayMember={displayMember}
           valueMember={valueMember}
-          onChange={v => this.onValueChange(v)}
+          onChange={(v) => this.onValueChange(v)}
           />
       );
     } else {
@@ -200,7 +204,7 @@ class Picker extends Component {
           displayMember={displayMember}
           valueMember={valueMember}
           selectedValue={value}
-          onValueChange={v => this.onValueChange(v)} >
+          onValueChange={(v) => this.onValueChange(v)}>
           {cols}
         </ColumnGroup>
       );
@@ -219,10 +223,10 @@ class Picker extends Component {
 
       const treeChildren2 = data.map((d, index) => {
         if (value[index]) {
-          return d.filter(obj => value[index] === obj[valueMember])[0];
+          return d.filter((obj) => value[index] === obj[valueMember])[0];
         }
         return undefined;
-      }).filter(t => !!t);
+      }).filter((t) => !!t);
       return this._displayRender(treeChildren2);
     };
 
@@ -232,7 +236,7 @@ class Picker extends Component {
           <input type="hidden" value={this.state.value} />
           {display() || placeholder}
         </div>
-        <div className={classes} onClick={e => onContainerClick(e)}>
+        <div className={classes} onClick={(e) => onContainerClick(e)}>
           <Popup
             className="za-popup-inner"
             visible={this.state.visible}

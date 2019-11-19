@@ -78,8 +78,12 @@ class Popup extends PureComponent {
   }
 
   render() {
-    const { prefixCls, children, onMaskClick, animationDuration, direction, className, maskType } = this.props;
-    const { isShow, isPending, animationState, isMaskShow } = this.state;
+    const {
+      prefixCls, children, onMaskClick, animationDuration, direction, className, maskType,
+    } = this.props;
+    const {
+      isShow, isPending, animationState, isMaskShow,
+    } = this.state;
 
     const cls = {
       popup: classnames(`${prefixCls}`, className, {

@@ -5,7 +5,9 @@ import classnames from 'classnames';
 class Cell extends PureComponent {
 
   render() {
-    const { prefixCls, className, theme, hasArrow, icon, title, description, help, disabled, onClick, children, ...others } = this.props;
+    const {
+      prefixCls, className, theme, hasArrow, icon, title, description, help, disabled, onClick, children, ...others
+    } = this.props;
 
     const cls = classnames({
       [`${prefixCls}`]: true,

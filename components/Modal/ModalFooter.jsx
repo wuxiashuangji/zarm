@@ -5,7 +5,9 @@ import classnames from 'classnames';
 class ModalFooter extends PureComponent {
 
   render() {
-    const { prefixCls, className, children, ...others } = this.props;
+    const {
+      prefixCls, className, children, ...others
+    } = this.props;
     const cls = classnames(`${prefixCls}-footer`, className, {
       // block: true,
     });
@@ -28,4 +30,3 @@ ModalFooter.defaultProps = {
 };
 
 export default ModalFooter;
-

@@ -26,7 +26,7 @@ class InputTextarea extends PureComponent {
 
   onInputChange = (e) => {
     const { onChange } = this.props;
-    const length = e.target.value.length;
+    const { length } = e.target.value;
     this.setState({ length });
     typeof onChange === 'function' && onChange(e);
   }

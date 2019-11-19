@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Container from '../components/Container';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Panel, Cell, Toast, Loading, Button, Icon } from '../../components';
+import {
+  Panel, Cell, Toast, Loading, Button, Icon,
+} from '../../components';
 import '../styles/pages/ToastPage';
 
 class ToastPage extends Component {
@@ -13,7 +15,7 @@ class ToastPage extends Component {
       toast: {
         visible: false,
         onMaskClick: () => {
-          const toast = this.state.toast;
+          const { toast } = this.state;
           toast.visible = false;
           this.setState({ toast });
         },
@@ -34,7 +36,7 @@ class ToastPage extends Component {
             <Panel.Body>
 
               <Cell
-                description={
+                description={(
                   <Button
                     size="xs"
                     theme="error"
@@ -43,11 +45,15 @@ class ToastPage extends Component {
                       toast.duration = 3000;
                       toast.children = '默认3秒自动关闭';
                       this.setState({ toast });
-                    }}>开启</Button>
-                }>错误提示</Cell>
+                    }}>
+开启
+                  </Button>
+                )}>
+错误提示
+              </Cell>
 
               <Cell
-                description={
+                description={(
                   <Button
                     size="xs"
                     theme="success"
@@ -61,11 +67,15 @@ class ToastPage extends Component {
                         </div>
                       );
                       this.setState({ toast });
-                    }}>开启</Button>
-                }>成功提示</Cell>
+                    }}>
+开启
+                  </Button>
+                )}>
+成功提示
+              </Cell>
 
               <Cell
-                description={
+                description={(
                   <Button
                     size="xs"
                     onClick={() => {
@@ -73,8 +83,12 @@ class ToastPage extends Component {
                       toast.duration = 10000;
                       toast.children = '指定10秒自动关闭';
                       this.setState({ toast });
-                    }}>开启</Button>
-                }>指定关闭时间</Cell>
+                    }}>
+开启
+                  </Button>
+                )}>
+指定关闭时间
+              </Cell>
 
             </Panel.Body>
           </Panel>
@@ -83,13 +97,15 @@ class ToastPage extends Component {
             <Panel.Header title="加载中" />
             <Panel.Body>
               <Cell
-                description={
+                description={(
                   <Button
                     size="xs"
                     onClick={() => this.setState({ loading: true })}>
                     开启
                   </Button>
-                }>Loading</Cell>
+                )}>
+Loading
+              </Cell>
             </Panel.Body>
           </Panel>
 

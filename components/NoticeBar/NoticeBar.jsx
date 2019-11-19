@@ -44,7 +44,9 @@ class NoticeBar extends PureComponent {
   }
 
   render() {
-    const { prefixCls, children, autoscroll, ...others } = this.props;
+    const {
+      prefixCls, children, autoscroll, ...others
+    } = this.props;
 
     return (
       <Message {...others} size="lg">

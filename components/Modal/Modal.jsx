@@ -64,7 +64,9 @@ class Modal extends PureComponent {
   }
 
   render() {
-    const { prefixCls, className, shape, animationType, animationDuration, width, onMaskClick, children } = this.props;
+    const {
+      prefixCls, className, shape, animationType, animationDuration, width, onMaskClick, children,
+    } = this.props;
     const { isShow, isPending, animationState } = this.state;
 
     const cls = {
@@ -107,7 +109,7 @@ class Modal extends PureComponent {
     return (
       <div className={cls.modal} style={style.modal} ref={(ele) => { this.modal = ele; }}>
         <div className={`${prefixCls}-wrapper`}>
-          <div className={cls.dialog} style={style.dialog} onClick={e => e.stopPropagation()}>
+          <div className={cls.dialog} style={style.dialog} onClick={(e) => e.stopPropagation()}>
             {children}
           </div>
         </div>
@@ -146,4 +148,3 @@ Modal.defaultProps = {
 };
 
 export default Modal;
-

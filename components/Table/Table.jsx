@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isArray, isFunc } from './../utils/is';
-import { getUid } from './../utils/getUid';
-import './../../styles/components/Table.scss';
+import { isArray, isFunc } from '../utils/is';
+import { getUid } from '../utils/getUid';
+import '../../styles/components/Table.scss';
 import Thead from './thead';
 import Td from './td';
 
@@ -62,6 +62,7 @@ class Table extends React.Component {
       });
     });
   }
+
   componentWillUnmount() {
     this.tableWrapper.removeEventListener('wheel', (e) => {
       this.wheelHandler(e);
@@ -92,6 +93,7 @@ class Table extends React.Component {
     return (this[ele] && this[ele].getBoundingClientRect()
       ? this[ele].getBoundingClientRect()[attr] : 0);
   }
+
   // wheel 处理
   wheelHandler(e) {
     e.preventDefault();
@@ -109,8 +111,8 @@ class Table extends React.Component {
 
     // scrollY 只能 < 0;
     if (scrollX <= 0 && maxScrollWidth > 0) {
-      this.tempScrollX = this.tempScrollX - (e.deltaX / pcSpeed) <= 0 ?
-        this.tempScrollX - (e.deltaX / pcSpeed) : 0;
+      this.tempScrollX = this.tempScrollX - (e.deltaX / pcSpeed) <= 0
+        ? this.tempScrollX - (e.deltaX / pcSpeed) : 0;
       if (this.tempScrollX <= -maxScrollWidth) {
         this.tempScrollX = -maxScrollWidth;
       }
@@ -120,8 +122,8 @@ class Table extends React.Component {
     }
     // scrollX 只能 < 0
     if (scrollY <= 0 && maxScrollHeight > 0) {
-      this.tempScrollY = this.tempScrollY - (e.deltaY / pcSpeed) <= 0 ?
-        this.tempScrollY - (e.deltaY / pcSpeed) : 0;
+      this.tempScrollY = this.tempScrollY - (e.deltaY / pcSpeed) <= 0
+        ? this.tempScrollY - (e.deltaY / pcSpeed) : 0;
       if (this.tempScrollY <= -maxScrollHeight) {
         this.tempScrollY = -maxScrollHeight;
       }
@@ -140,6 +142,7 @@ class Table extends React.Component {
       touchInitY: touchEleDom.pageY,
     });
   }
+
   // touchmove 触摸移动处理
   touchmoveHandler($event) {
     const touchEleDom = $event.touches[0];
@@ -160,8 +163,8 @@ class Table extends React.Component {
 
     // scrollY 只能 < 0;
     if (scrollX <= 0 && Math.abs(scrollTmpX) >= mSpeed && maxScrollWidth > 0) {
-      this.tempScrollX = this.touchendScrollX + (scrollTmpX * mSpeed) <= 0 ?
-        this.touchendScrollX + (scrollTmpX * mSpeed) : 0;
+      this.tempScrollX = this.touchendScrollX + (scrollTmpX * mSpeed) <= 0
+        ? this.touchendScrollX + (scrollTmpX * mSpeed) : 0;
       if (this.tempScrollX <= -maxScrollWidth) {
         this.tempScrollX = -maxScrollWidth;
       }
@@ -171,8 +174,8 @@ class Table extends React.Component {
     }
     // scrollX 只能 < 0
     if (scrollY <= 0 && Math.abs(scrollTmpY) >= mSpeed && maxScrollHeight > 0) {
-      this.tempScrollY = this.touchendScrollY + (scrollTmpY * mSpeed) <= 0 ?
-        this.touchendScrollY + (scrollTmpY * mSpeed) : 0;
+      this.tempScrollY = this.touchendScrollY + (scrollTmpY * mSpeed) <= 0
+        ? this.touchendScrollY + (scrollTmpY * mSpeed) : 0;
       if (this.tempScrollY <= -maxScrollHeight) {
         this.tempScrollY = -maxScrollHeight;
       }
@@ -187,6 +190,7 @@ class Table extends React.Component {
     this.touchendScrollX = this.tempScrollX;
     this.touchendScrollY = this.tempScrollY;
   }
+
   unMountHanler() {
     this.tempScrollX = 0;
     this.tempScrollY = 0;
@@ -211,13 +215,13 @@ class Table extends React.Component {
     const colgroup = (
       <colgroup>
         {
-          columns.map(item => (
+          columns.map((item) => (
             <col
               // key={getUid()}
               style={{
                 width: item.width,
               }}
-            />
+              />
           ))
         }
       </colgroup>
@@ -245,10 +249,10 @@ class Table extends React.Component {
         }
         return null;
       });
-      const arrNoNull = tmpArr.filter(i => i != null);
-      const findIndex = arrNoNull.findIndex(i => i === computIndex);
+      const arrNoNull = tmpArr.filter((i) => i != null);
+      const findIndex = arrNoNull.findIndex((i) => i === computIndex);
       return {
-        length: tmpArr.filter(i => i != null).length,
+        length: tmpArr.filter((i) => i != null).length,
         firstOneIndex: arrNoNull.length > 0 ? arrNoNull[0] : -1,
         lastOneIndex: arrNoNull.length > 0 ? arrNoNull[arrNoNull.length - 1] : -1,
         findIndex,
@@ -264,7 +268,7 @@ class Table extends React.Component {
     // fixedLeft 最后一个的index
     const lastFixedLeftIndex = fixedLeft(columns, 0).lastOneIndex;
 
-    const computFixed = index => ((index <= lastFixedLeftIndex && lastFixedLeftIndex !== -1) ? 'left' : (index >= firstFixedRightIndex && firstFixedRightIndex !== -1 ? 'right' : undefined));
+    const computFixed = (index) => ((index <= lastFixedLeftIndex && lastFixedLeftIndex !== -1) ? 'left' : (index >= firstFixedRightIndex && firstFixedRightIndex !== -1 ? 'right' : undefined));
 
     // 计算右fixed的列需要滚动距离
     const rightScroll = (tableHeaderWidth - wrapperWidth) + scrollX;
@@ -282,7 +286,7 @@ class Table extends React.Component {
 
     // 计算 表头深度, 每个单元的广度
     const getRows = (columnsData) => {
-      let maxRowsNum = columnsData.map(item => (isArray(item.group) ? item.group.length + 1 : 1));
+      let maxRowsNum = columnsData.map((item) => (isArray(item.group) ? item.group.length + 1 : 1));
       maxRowsNum = maxRowsNum.sort()[maxRowsNum.length - 1];
       const tmpArray = new Array(maxRowsNum).fill('').map(() => []); // 表头最后rows
 
@@ -296,36 +300,32 @@ class Table extends React.Component {
       columnsTmp.map((item, index) => {
         if (isArray(item.group)) {
           item.group.map((groupItem, groupIndex) => {
-            tmpArray[groupIndex].push(Object.assign({}, {
+            tmpArray[groupIndex].push({
               title: groupItem,
               level: groupIndex + 1,
               colSpan: 1,
               rowSpan: 1,
               fixed: computFixed(index),
-            }));
+            });
             return groupItem;
           });
-          tmpArray[item.group.length].push(Object.assign(
-            {},
-            item,
-            {
-              colSpan: 1,
-              rowSpan: maxRowsNum - item.group.length,
-              level: tmpArray.length,
-              fixed: computFixed(index),
-            }
-          ));
+          tmpArray[item.group.length].push({
+
+            ...item,
+            colSpan: 1,
+            rowSpan: maxRowsNum - item.group.length,
+            level: tmpArray.length,
+            fixed: computFixed(index),
+          });
         } else {
-          tmpArray[0].push(Object.assign(
-            {},
-            item,
-            {
-              colSpan: 1,
-              rowSpan: tmpArray.length,
-              level: 1,
-              fixed: computFixed(index),
-            }
-          ));
+          tmpArray[0].push({
+
+            ...item,
+            colSpan: 1,
+            rowSpan: tmpArray.length,
+            level: 1,
+            fixed: computFixed(index),
+          });
         }
         return item;
       });
@@ -335,16 +335,14 @@ class Table extends React.Component {
         item.forEach((subItem) => {
           const titleId = subItem.title + subItem.level;
           if (obj[titleId]) {
-            obj[titleId] = Object.assign(
-              {},
-              subItem,
-              {
-                fixed: obj[titleId].fixed || subItem.fixed,
-                colSpan: (Number(obj[titleId].colSpan || 0)) + 1,
-              }
-            );
+            obj[titleId] = {
+
+              ...subItem,
+              fixed: obj[titleId].fixed || subItem.fixed,
+              colSpan: (Number(obj[titleId].colSpan || 0)) + 1,
+            };
           } else {
-            obj[titleId] = Object.assign({}, subItem, { colSpan: 1, fixed: subItem.fixed });
+            obj[titleId] = { ...subItem, colSpan: 1, fixed: subItem.fixed };
           }
         });
         resultArray.push(Object.values(obj));
@@ -361,7 +359,7 @@ class Table extends React.Component {
         style={style || {}}>
         <div
           className={classnames(`${prefixCls}-wrapper`)}
-          ref={e => this.tableWrapper = e}>
+          ref={(e) => this.tableWrapper = e}>
           <div className={classnames(`${prefixCls}-header`)}>
             <table
               ref={(e) => {
@@ -380,24 +378,25 @@ class Table extends React.Component {
                 leftScroll={scrollX}
                 rightScroll={rightScroll}
                 computedClassName={setClassName}
-              />
+                />
             </table>
           </div>
           {
-            isArray(data) && <div
+            isArray(data) && (
+            <div
               className={classnames(`${prefixCls}-body`)}
-              ref={e => this.tableBody = e}
+              ref={(e) => this.tableBody = e}
               style={{
                 transform: `translate3d(${scrollX}px, ${scrollY}px, 0)`,
                 zIndex: 0,
               }}>
               {
                 data.length > 0 && (
-                  <table >
+                  <table>
                     {
                       colgroup
                     }
-                    <tbody >
+                    <tbody>
                       {
                         data.map((infoItem, infoIndex) => (
                           <tr key={(isFunc(keygen) && keygen(infoItem)) || infoItem[keygen]}>
@@ -413,7 +412,7 @@ class Table extends React.Component {
                                   leftScroll={scrollX}
                                   rightScroll={rightScroll}
                                   {...this.props}
-                                />
+                                  />
                               ))
                             }
                           </tr>
@@ -424,6 +423,7 @@ class Table extends React.Component {
                 )
               }
             </div>
+            )
           }
         </div>
         {
@@ -433,7 +433,7 @@ class Table extends React.Component {
                 width: '100%',
                 zIndex: 0,
               }}
-              ref={e => this.tableBody = e}
+              ref={(e) => this.tableBody = e}
               className={classnames(`${prefixCls}-empty`)}>
               {empty || <span>无数据</span>}
             </div>

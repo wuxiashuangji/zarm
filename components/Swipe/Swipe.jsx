@@ -89,7 +89,7 @@ class Swipe extends Component {
     this.scrolling = false;
 
     // 跳转到头尾
-    const activeIndex = this.state.activeIndex;
+    const { activeIndex } = this.state;
     const maxLength = this.props.children.length;
 
     if (activeIndex <= 0) {
@@ -192,10 +192,12 @@ class Swipe extends Component {
 
   // 自动轮播开始
   startAutoPlay = () => {
-    const { direction, loop, autoPlay, autoPlayIntervalTime, children } = this.props;
+    const {
+      direction, loop, autoPlay, autoPlayIntervalTime, children,
+    } = this.props;
 
     this.moveInterval = (autoPlay && setInterval(() => {
-      let activeIndex = this.state.activeIndex;
+      let { activeIndex } = this.state;
       const maxLength = children.length;
 
       activeIndex = (['left', 'top'].indexOf(direction) > -1)
@@ -274,7 +276,7 @@ class Swipe extends Component {
   }
 
   transitionEnd = () => {
-    const activeIndex = this.state.activeIndex;
+    const { activeIndex } = this.state;
     const dom = this.swipeItems;
     this.translateX = -dom.offsetWidth * (activeIndex + this.props.loop);
     this.translateY = -dom.offsetHeight * (activeIndex + this.props.loop);
@@ -300,7 +302,9 @@ class Swipe extends Component {
   }
 
   render() {
-    const { prefixCls, className, height, showPagination, children } = this.props;
+    const {
+      prefixCls, className, height, showPagination, children,
+    } = this.props;
     const cls = classnames(`${prefixCls}`, className);
     const style = {
       items: {},
@@ -385,4 +389,3 @@ Swipe.defaultProps = {
 };
 
 export default Swipe;
-

@@ -43,6 +43,8 @@
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/jsx-closing-bracket-location": ["error", { "selfClosing": "props-aligned", "nonEmpty": "after-props" }],
     "react/no-array-index-key": "warn",
-    "padded-blocks": "off"
+    "padded-blocks": "off",
+    "react/no-deprecated": "off",
+    "react/destructuring-assignment": "off"
   }
 }

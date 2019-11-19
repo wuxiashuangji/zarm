@@ -53,11 +53,11 @@ class Cascader extends Component {
 
   getCols() {
     const { data, cols } = this.props;
-    const value = this.state.value;
+    const { value } = this.state;
 
     const childrenTree = arrayTreeFilter(data, (item, level) => {
       return item[this.props.valueMember] === value[level];
-    }).map(c => c.children);
+    }).map((c) => c.children);
 
     if (cols) {
       childrenTree.length = cols - 1;
@@ -78,7 +78,7 @@ class Cascader extends Component {
   getValue(d, val) {
     const data = d || this.props.data;
     const value = val || this.props.value || this.props.defaultValue;
-    const valueMember = this.props.valueMember;
+    const { valueMember } = this.props;
 
     if (!value || !value.length) {
       return formatToInit(data[0], valueMember, this.props.cols);
@@ -107,7 +107,7 @@ class Cascader extends Component {
         displayMember={displayMember}
         valueMember={valueMember}
         selectedValue={this.state.value}
-        onValueChange={(value, index) => this.onValueChange(value, index)} >
+        onValueChange={(value, index) => this.onValueChange(value, index)}>
         {this.getCols()}
       </ColumnGroup>
     );

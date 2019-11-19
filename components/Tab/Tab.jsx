@@ -33,7 +33,9 @@ class Tab extends PureComponent {
   }
 
   render() {
-    const { prefixCls, className, theme, lineWidth, disabled, canSwipe, children, onChange } = this.props;
+    const {
+      prefixCls, className, theme, lineWidth, disabled, canSwipe, children, onChange,
+    } = this.props;
 
     const classes = classnames(`${prefixCls}`, className, {
       [`theme-${theme}`]: !!theme,

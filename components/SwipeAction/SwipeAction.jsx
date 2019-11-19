@@ -16,11 +16,11 @@ class SwipeAction extends PureComponent {
   }
 
   componentDidMount() {
-    Events.on(document.body, 'touchstart', e => this.onCloseSwipe(e));
+    Events.on(document.body, 'touchstart', (e) => this.onCloseSwipe(e));
   }
 
   componentWillUnmount() {
-    Events.off(document.body, 'touchstart', e => this.onCloseSwipe(e));
+    Events.off(document.body, 'touchstart', (e) => this.onCloseSwipe(e));
   }
 
   onDragStart = () => {
@@ -88,7 +88,7 @@ class SwipeAction extends PureComponent {
 
   onBtnClick = (e, btn) => {
     e.preventDefault();
-    const onClick = btn.onClick;
+    const { onClick } = btn;
     if (onClick) {
       onClick(e);
     }
@@ -138,7 +138,7 @@ class SwipeAction extends PureComponent {
   }
 
   renderButtons = (buttons, ref) => {
-    const prefixCls = this.props.prefixCls;
+    const { prefixCls } = this.props;
 
     return (buttons && buttons.length) ? (
       <div
@@ -155,7 +155,7 @@ class SwipeAction extends PureComponent {
               <div
                 key={+i}
                 className={classes}
-                onClick={e => this.onBtnClick(e, btn)}>
+                onClick={(e) => this.onBtnClick(e, btn)}>
                 <div className={`${prefixCls}-text`}>{text || `${ref}${i}`}</div>
               </div>
             );
@@ -166,7 +166,9 @@ class SwipeAction extends PureComponent {
   }
 
   render() {
-    const { prefixCls, className, left, right, children } = this.props;
+    const {
+      prefixCls, className, left, right, children,
+    } = this.props;
     const { offsetLeft, animationDuration } = this.state;
     const cls = classnames(`${prefixCls}`, className);
     const style = {
@@ -190,7 +192,7 @@ class SwipeAction extends PureComponent {
             </div>
           </Drag>
         </div>
-        )
+      )
       : children;
   }
 }

@@ -1,8 +1,7 @@
 const path = require('path');
 const sass = require('sass');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyWebpackPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -33,7 +32,13 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+            // loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: './',
+              // publicPath: devMode ? './' : '../',   // 根据不同环境指定不同的publicPath
+              hmr: devMode, // 仅dev环境启用HMR功能
+            },
           },
           {
             loader: 'css-loader',
@@ -46,13 +51,10 @@ module.exports = {
             options: {
               sourceMap: true,
               implementation: sass,
-              modifyVars: {
-                'za-': process.env.SO_PREFIX || 'zorl',
-              },
+              prependData: `$env: ${process.env.NODE_ENV}; $prefixCls: zorl-`,
             },
           },
         ],
-
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
@@ -75,16 +77,17 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [' ', '.js', '.jsx', '.scss'],
+    extensions: [' ', '.js', '.jsx', '.scss', '.ts', '.css', '.less', '.sass', '.tsx'],
   },
   optimization: {
     minimizer: [
-      new UglifyWebpackPlugin({
-        cache: true,
-        parallel: true,
-      }),
-      new OptimizeCSSAssetsPlugin({}),
     ],
   },
-  plugins: [],
+  plugins: [
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
+    new MiniCssExtractPlugin({
+      filename: devMode ? 'css/[name].css' : 'css/[name].[hash].css',
+      chunkFilename: devMode ? 'css/[id].css' : 'css/[id].[hash].css',
+    }),
+  ],
 };

@@ -5,7 +5,9 @@ import Popup from '../Popup';
 
 class ActionSheet extends PureComponent {
   render() {
-    const { prefixCls, className, shape, visible, onMaskClick, actions, cancelText, onCancel } = this.props;
+    const {
+      prefixCls, className, shape, visible, onMaskClick, actions, cancelText, onCancel,
+    } = this.props;
 
     const cls = classnames(`${prefixCls}`, className, {
       [`shape-${shape}`]: !!shape,

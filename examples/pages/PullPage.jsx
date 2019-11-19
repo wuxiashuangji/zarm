@@ -6,16 +6,16 @@ import { Panel, Cell, Pull } from '../../components';
 import '../styles/pages/PullPage';
 
 const REFRESH_STATE = {
-  normal: 0,  // 普通
-  pull: 1,    // 下拉刷新（未满足刷新条件）
-  drop: 2,    // 释放立即刷新（满足刷新条件）
+  normal: 0, // 普通
+  pull: 1, // 下拉刷新（未满足刷新条件）
+  drop: 2, // 释放立即刷新（满足刷新条件）
   loading: 3, // 加载中
   success: 4, // 加载成功
   failure: 5, // 加载失败
 };
 
 const LOAD_STATE = {
-  normal: 0,  // 普通
+  normal: 0, // 普通
   abort: 1, // 中止
   loading: 2, // 加载中
   success: 3, // 加载成功
@@ -56,10 +56,15 @@ class Page extends Component {
       if (!this.mounted) return;
 
       const dataSource = [];
-      const length = dataSource.length;
+      const { length } = dataSource;
 
       for (let i = length; i < length + 20; i++) {
-        dataSource.push(<Cell key={+i}>第 {i + 1} 行</Cell>);
+        dataSource.push(<Cell key={+i}>
+第
+          {i + 1}
+          {' '}
+行
+                        </Cell>);
       }
 
       this.setState({
@@ -90,7 +95,12 @@ class Page extends Component {
         const newLength = 5;
         const startIndex = dataSource.length;
         for (let i = startIndex; i < startIndex + newLength; i++) {
-          dataSource.push(<Cell key={+i}>第 {i + 1} 行</Cell>);
+          dataSource.push(<Cell key={+i}>
+第
+            {i + 1}
+            {' '}
+行
+                          </Cell>);
         }
       }
 
@@ -106,7 +116,12 @@ class Page extends Component {
 
     const itemsRender = [];
     for (let i = 0; i < 3; i++) {
-      itemsRender.push(<Cell key={+i}>第 {i + 1} 行</Cell>);
+      itemsRender.push(<Cell key={+i}>
+第
+        {i + 1}
+        {' '}
+行
+                       </Cell>);
     }
 
     return (

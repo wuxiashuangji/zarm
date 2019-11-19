@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import assign from 'object-assign';
-import { isFunc } from './../utils/is';
-import './../../styles/components/Table.scss';
+import { isFunc } from '../utils/is';
+import '../../styles/components/Table.scss';
 import { getUid } from '../utils/getUid';
 
 const Thead = (props) => {
@@ -11,21 +11,20 @@ const Thead = (props) => {
   } = props;
 
   return (
-    <thead >
+    <thead>
       {
         rows.map((item, index) => (
           <tr
             key={`${index + 1}`}>
             {
-              item.map((subItem, subIdx) =>
-                (
-                  <th
-                    colSpan={subItem.colSpan}
-                    rowSpan={subItem.rowSpan}
-                    className={[
-                      computedClassName(item, subItem, subIdx),
-                    ].join(' ')}
-                    style={
+              item.map((subItem, subIdx) => (
+                <th
+                  colSpan={subItem.colSpan}
+                  rowSpan={subItem.rowSpan}
+                  className={[
+                    computedClassName(item, subItem, subIdx),
+                  ].join(' ')}
+                  style={
                       assign(
                         {},
                         subItem.style,
@@ -37,14 +36,17 @@ const Thead = (props) => {
                           transform: `translate3d(-${rightScroll}px, 0px, 0)`,
                           zIndex: subIdx,
                         }
-                      )}>
-                    {isFunc(subItem.title) ? (subItem.title)() : subItem.title}
-                  </th>
-                ))
+                      )
+}>
+                  {isFunc(subItem.title) ? (subItem.title)() : subItem.title}
+                </th>
+              ))
             }
-          </tr>))
+          </tr>
+        ))
       }
-    </thead>);
+    </thead>
+  );
 };
 
 

@@ -6,7 +6,9 @@ import Button from '../Button';
 class Alert extends PureComponent {
 
   render() {
-    const { prefixCls, title, message, cancelText, onCancel, ...others } = this.props;
+    const {
+      prefixCls, title, message, cancelText, onCancel, ...others
+    } = this.props;
 
     return (
       <Modal {...others}>

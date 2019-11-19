@@ -23,14 +23,14 @@ class Page extends Component {
             <Panel.Body>
               <Cell
                 title="普通"
-                description={
+                description={(
                   <Stepper
                     value={this.state.value}
                     onChange={(value) => {
                       console.log(value);
                     }}
                     />
-                }
+                )}
                 />
 
               <Cell

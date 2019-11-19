@@ -57,11 +57,13 @@ class Uploader extends PureComponent {
       }
     };
 
-    files && files.map(file => handleFileInfo({ file, quality }, getFileInfo));
+    files && files.map((file) => handleFileInfo({ file, quality }, getFileInfo));
   }
 
   render() {
-    const { prefixCls, className, multiple, accept, capture, disabled, children } = this.props;
+    const {
+      prefixCls, className, multiple, accept, capture, disabled, children,
+    } = this.props;
 
     const cls = classNames(prefixCls, {
       disabled,

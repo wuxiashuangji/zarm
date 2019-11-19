@@ -33,52 +33,62 @@ class Page extends PureComponent {
             <Panel.Header title="按钮样式" />
             <Panel.Body className="radio-buttons">
               <Cell
-                description={
+                description={(
                   <Radio.Group
                     type="button"
                     value={this.state.radio}
-                    onChange={value => console.log(`radio to ${value}`)}>
+                    onChange={(value) => console.log(`radio to ${value}`)}>
                     <Radio value="0">选项一</Radio>
                     <Radio value="1">选项二</Radio>
                     <Radio value="2">选项三</Radio>
                   </Radio.Group>
-                }>普通</Cell>
+                )}>
+普通
+              </Cell>
 
               <Cell
-                description={
+                description={(
                   <Radio.Group type="button" defaultValue="1">
                     <Radio value="0">选项一</Radio>
                     <Radio value="1">选项二</Radio>
                     <Radio value="2">选项三</Radio>
                   </Radio.Group>
-                }>指定默认值</Cell>
+                )}>
+指定默认值
+              </Cell>
 
               <Cell
-                description={
+                description={(
                   <Radio.Group type="button">
                     <Radio value="0">选项一</Radio>
                     <Radio value="1">选项二</Radio>
                     <Radio value="2" disabled>选项三</Radio>
                   </Radio.Group>
-                }>禁用指定项</Cell>
+                )}>
+禁用指定项
+              </Cell>
 
               <Cell
-                description={
+                description={(
                   <Radio.Group type="button" shape="radius">
                     <Radio value="0">选项一</Radio>
                     <Radio value="1">选项二</Radio>
                     <Radio value="2">选项三</Radio>
                   </Radio.Group>
-                }>圆角</Cell>
+                )}>
+圆角
+              </Cell>
 
               <Cell
-                description={
+                description={(
                   <Radio.Group type="button" shape="round">
                     <Radio value="0">选项一</Radio>
                     <Radio value="1">选项二</Radio>
                     <Radio value="2">选项三</Radio>
                   </Radio.Group>
-                }>椭圆角</Cell>
+                )}>
+椭圆角
+              </Cell>
 
             </Panel.Body>
           </Panel>

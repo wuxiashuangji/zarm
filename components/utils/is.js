@@ -1,12 +1,12 @@
 // 判断类型 语句
 const typeCheck = Object.prototype.toString;
-const isFunc = something => typeCheck.call(something) === '[object Function]';
-const isString = something => typeCheck.call(something) === '[object String]';
-const isArray = something => typeCheck.call(something) === '[object Array]';
-const isBoolean = something => typeCheck.call(something) === '[object Boolean]';
-const isNumber = something => typeCheck.call(something) === '[object Number]';
-const isObject = something => typeCheck.call(something) === '[object Object]';
-const isUndefined = something => typeCheck.call(something) === '[object Undefined]';
+const isFunc = (something) => typeCheck.call(something) === '[object Function]';
+const isString = (something) => typeCheck.call(something) === '[object String]';
+const isArray = (something) => typeCheck.call(something) === '[object Array]';
+const isBoolean = (something) => typeCheck.call(something) === '[object Boolean]';
+const isNumber = (something) => typeCheck.call(something) === '[object Number]';
+const isObject = (something) => typeCheck.call(something) === '[object Object]';
+const isUndefined = (something) => typeCheck.call(something) === '[object Undefined]';
 // 浏览器判断集合
 const os = function () {
   const ua = navigator.userAgent;
@@ -66,7 +66,7 @@ const os = function () {
   };
 };
 
-export {
+export default {
   isFunc,
   isString,
   isArray,

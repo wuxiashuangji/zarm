@@ -5,7 +5,9 @@ import classnames from 'classnames';
 class Icon extends PureComponent {
 
   render() {
-    const { prefixCls, type, theme, className, ...others } = this.props;
+    const {
+      prefixCls, type, theme, className, ...others
+    } = this.props;
     const cls = classnames({
       [`${prefixCls}`]: true,
       [className]: !!className,

@@ -5,7 +5,9 @@ import classnames from 'classnames';
 class ModalBody extends PureComponent {
 
   render() {
-    const { prefixCls, className, height, children, ...others } = this.props;
+    const {
+      prefixCls, className, height, children, ...others
+    } = this.props;
     const cls = classnames(`${prefixCls}-body`, className);
 
     const bodyStyle = {};
@@ -31,4 +33,3 @@ ModalBody.defaultProps = {
 };
 
 export default ModalBody;
-

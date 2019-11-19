@@ -28,7 +28,11 @@ class Page extends PureComponent {
               <Cell><Checkbox defaultChecked disabled>选中且禁用</Checkbox></Cell>
               <Cell className="agreement-box">
                 <Checkbox id="agreement" />
-                <label htmlFor="agreement">阅读并同意<a onClick={(e) => { e.preventDefault(); alert('agree it'); }}>《XXX条款》</a>中的相关规定</label>
+                <label htmlFor="agreement">
+阅读并同意
+                  <a onClick={(e) => { e.preventDefault(); alert('agree it'); }}>《XXX条款》</a>
+中的相关规定
+                </label>
               </Cell>
             </Panel.Body>
           </Panel>
@@ -37,49 +41,59 @@ class Page extends PureComponent {
             <Panel.Header title="按钮样式" />
             <Panel.Body>
               <Cell
-                description={
+                description={(
                   <Checkbox.Group type="button">
                     <Checkbox value="0">选项一</Checkbox>
                     <Checkbox value="1">选项二</Checkbox>
                     <Checkbox value="2">选项三</Checkbox>
                   </Checkbox.Group>
-                }>普通</Cell>
+                )}>
+普通
+              </Cell>
 
               <Cell
-                description={
+                description={(
                   <Checkbox.Group type="button" defaultValue={['0', '1']}>
                     <Checkbox value="0">选项一</Checkbox>
                     <Checkbox value="1">选项二</Checkbox>
                     <Checkbox value="2">选项三</Checkbox>
                   </Checkbox.Group>
-                }>指定默认值</Cell>
+                )}>
+指定默认值
+              </Cell>
 
               <Cell
-                description={
+                description={(
                   <Checkbox.Group type="button">
                     <Checkbox value="0">选项一</Checkbox>
                     <Checkbox value="1">选项二</Checkbox>
                     <Checkbox value="2" disabled>选项三</Checkbox>
                   </Checkbox.Group>
-                }>禁用指定项</Cell>
+                )}>
+禁用指定项
+              </Cell>
 
               <Cell
-                description={
+                description={(
                   <Checkbox.Group type="button" shape="radius">
                     <Checkbox value="0">选项一</Checkbox>
                     <Checkbox value="1">选项二</Checkbox>
                     <Checkbox value="2">选项三</Checkbox>
                   </Checkbox.Group>
-                }>圆角</Cell>
+                )}>
+圆角
+              </Cell>
 
               <Cell
-                description={
+                description={(
                   <Checkbox.Group type="button" shape="round">
                     <Checkbox value="0">选项一</Checkbox>
                     <Checkbox value="1">选项二</Checkbox>
                     <Checkbox value="2">选项三</Checkbox>
                   </Checkbox.Group>
-                }>椭圆角</Cell>
+                )}>
+椭圆角
+              </Cell>
 
             </Panel.Body>
           </Panel>

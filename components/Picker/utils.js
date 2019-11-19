@@ -95,7 +95,8 @@ export function formatToInit(data, member, cols) {
 
     result.push(foundValue);
     if (Object.prototype.hasOwnProperty.call(_data, 'children')) {
-      _data = _data.children[0];
+      const { children } = _data;
+      [_data] = children;
     } else {
       break;
     }
@@ -106,7 +107,7 @@ export function formatToInit(data, member, cols) {
 }
 
 const filterValue = (dataSource, value, member, level) => {
-  return dataSource.filter(item => (
+  return dataSource.filter((item) => (
     item[member] === value[level]
   ))[0];
 };
@@ -114,7 +115,7 @@ const filterValue = (dataSource, value, member, level) => {
 export function formatBackToObject(data, value, cascade, member, cols) {
   if (!cascade) {
     const result = data.map((item, index) => (
-      item.filter(itemInner => (
+      item.filter((itemInner) => (
         itemInner[member] === value[index]
       ))[0]
     ));
@@ -153,4 +154,3 @@ export function isArray(data) {
 export function hasChildrenObject(data) {
   return Object.prototype.hasOwnProperty.call(data, 'children') && Object.prototype.toString.call(data.children) !== '[object String]';
 }
-

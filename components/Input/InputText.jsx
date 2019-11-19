@@ -5,7 +5,9 @@ import classnames from 'classnames';
 class InputText extends PureComponent {
 
   render() {
-    const { prefixCls, className, disabled, focused, ...others } = this.props;
+    const {
+      prefixCls, className, disabled, focused, ...others
+    } = this.props;
     const cls = classnames(prefixCls, `${prefixCls}-text`, className, disabled);
     return (
       <div className={cls}>

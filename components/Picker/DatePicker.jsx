@@ -94,7 +94,7 @@ class DatePicker extends Component {
   onValueChange(values, index) {
     const value = parseInt(values[index], 10);
 
-    const props = this.props;
+    const { props } = this;
     const { mode } = props;
     let newValue = this.getDate().clone();
 
@@ -210,7 +210,9 @@ class DatePicker extends Component {
   }
 
   getDateData() {
-    const { locale, formatMonth, formatDay, mode } = this.props;
+    const {
+      locale, formatMonth, formatDay, mode,
+    } = this.props;
     const date = this.getDate();
 
     const selYear = date.year();
@@ -464,7 +466,9 @@ class DatePicker extends Component {
 
   render() {
     const { value, cols } = this.getValueCols();
-    const { prefixCls, className, disabled, cancelText, okText, title, placeholder, displayMember, valueMember } = this.props;
+    const {
+      prefixCls, className, disabled, cancelText, okText, title, placeholder, displayMember, valueMember,
+    } = this.props;
 
     const classes = classnames({
       [`${prefixCls}-container`]: true,
@@ -486,7 +490,7 @@ class DatePicker extends Component {
           <input type="hidden" value={this.state.date} />
           {this.state.date ? formatFn(this, this.state.date) : placeholder}
         </div>
-        <div className={classes} onClick={e => stopClick(e)}>
+        <div className={classes} onClick={(e) => stopClick(e)}>
           <Popup
             visible={this.state.visible}
             onMaskClick={() => this.close('visible')}>

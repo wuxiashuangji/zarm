@@ -69,7 +69,7 @@ class PickerStack extends Component {
 
   obtainItem(list, value) {
     const { valueMember } = this.props;
-    return list.filter(item => item[valueMember] === value)[0];
+    return list.filter((item) => item[valueMember] === value)[0];
   }
 
   change(index, cVal, isLast) {
@@ -107,13 +107,15 @@ class PickerStack extends Component {
   }
 
   reposition() {
-    const { dataSource, valueMember, disabled, displayItems, itemHeight, cols } = this.props;
+    const {
+      dataSource, valueMember, disabled, displayItems, itemHeight, cols,
+    } = this.props;
 
     if (disabled) return;
 
     this.state.value.reduce((data, item, index) => {
       const value = item[valueMember];
-      const valIndex = data.map(dataItem => dataItem[valueMember]).indexOf(value);
+      const valIndex = data.map((dataItem) => dataItem[valueMember]).indexOf(value);
 
       if (index < cols && ~valIndex) {
         const target = this.columns[`column${index}`];
@@ -192,8 +194,12 @@ class PickerStack extends Component {
   }
 
   render() {
-    const { className, value: curVal, title, dataSource, placeholder, disabled, labelAddon, prefixCls, displayRender, itemRender } = this.props;
-    const { visible, errorMsg, value, displayValue } = this.state;
+    const {
+      className, value: curVal, title, dataSource, placeholder, disabled, labelAddon, prefixCls, displayRender, itemRender,
+    } = this.props;
+    const {
+      visible, errorMsg, value, displayValue,
+    } = this.state;
     const displayLabel = displayRender(displayValue);
 
     const labelCls = classnames({
@@ -214,26 +220,31 @@ class PickerStack extends Component {
           { displayLabel || placeholder }
         </div>
         {
-          disabled ?
-          null :
-          <div className={wrapperCls} onClick={stopEventPropagation}>
-            <Popup
-              visible={visible}
-              onMaskClick={this.onMaskClick}>
-              <div className={`${prefixCls}-wrapper`}>
-                <div className={`${prefixCls}-header`}>
-                  <div className={`${prefixCls}-cancel`} onClick={this.onCancel}>取消</div>
-                  <div className={`${prefixCls}-title`}>{ title }</div>
-                  <div className={`${prefixCls}-submit`} />
-                </div>
-                <div className={`${prefixCls}-crumbs`}>
-                  <p>选择：{ value.map(item => itemRender(item)).join(labelAddon) }</p>
-                  { errorMsg ? <p className={`${prefixCls}-crumbs-error`}>{ errorMsg }</p> : null }
-                </div>
-                <div className={`${prefixCls}-stack-group`}>{ this.renderGroup(dataSource, value) }</div>
+          disabled
+            ? null
+            : (
+              <div className={wrapperCls} onClick={stopEventPropagation}>
+                <Popup
+                  visible={visible}
+                  onMaskClick={this.onMaskClick}>
+                  <div className={`${prefixCls}-wrapper`}>
+                    <div className={`${prefixCls}-header`}>
+                      <div className={`${prefixCls}-cancel`} onClick={this.onCancel}>取消</div>
+                      <div className={`${prefixCls}-title`}>{ title }</div>
+                      <div className={`${prefixCls}-submit`} />
+                    </div>
+                    <div className={`${prefixCls}-crumbs`}>
+                      <p>
+选择：
+                        { value.map((item) => itemRender(item)).join(labelAddon) }
+                      </p>
+                      { errorMsg ? <p className={`${prefixCls}-crumbs-error`}>{ errorMsg }</p> : null }
+                    </div>
+                    <div className={`${prefixCls}-stack-group`}>{ this.renderGroup(dataSource, value) }</div>
+                  </div>
+                </Popup>
               </div>
-            </Popup>
-          </div>
+            )
         }
       </div>
     );
@@ -272,8 +283,8 @@ PickerStack.defaultProps = {
   itemHeight: 50,
   onOk() {},
   onCancel() {},
-  displayRender: data => data.map(({ label }) => label).join(''),
-  itemRender: data => data.label,
+  displayRender: (data) => data.map(({ label }) => label).join(''),
+  itemRender: (data) => data.label,
   validate() {},
 };
 

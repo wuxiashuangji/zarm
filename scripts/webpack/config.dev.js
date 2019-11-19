@@ -4,22 +4,18 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const config = require('./config.base.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const config = require('./config.base.js');
 
-module.exports = Object.assign({}, config, {
+module.exports = {
   mode: 'development',
+  devtool: 'cheap-module-source-map',
+  resolve: config.resolve,
   entry: {
     index: ['./examples/index.js'],
     common: ['react', 'react-dom', 'react-router-dom'],
   },
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].[chunkhash].chunk.js',
-    publicPath: '/',
-  },
-  devtool: 'cheap-module-source-map',
+  output: config.output,
   externals: {
     'babel-polyfill': 'undefined',
     react: 'React',
@@ -45,10 +41,15 @@ module.exports = Object.assign({}, config, {
       filename: 'index.html',
       chunks: ['common', 'manifest', 'index'],
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name]-[hash].css',
+      chunkFilename: '[name]-[hash].css',
+    }),
   ],
   devServer: {
+    publicPath: config.output.publicPath,
     host: '0.0.0.0',
-    port: 8080,
+    port: 3000,
     useLocalIp: true,
     open: true,
     headers: {
@@ -76,4 +77,4 @@ module.exports = Object.assign({}, config, {
       // },
     },
   },
-});
+};

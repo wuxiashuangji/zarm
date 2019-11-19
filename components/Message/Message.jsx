@@ -13,7 +13,9 @@ class Message extends PureComponent {
   }
 
   render() {
-    const { prefixCls, className, theme, size, icon, hasArrow, hasClosable, onClick, children } = this.props;
+    const {
+      prefixCls, className, theme, size, icon, hasArrow, hasClosable, onClick, children,
+    } = this.props;
 
     const classes = classnames(`${prefixCls}`, className, {
       [`theme-${theme}`]: !!theme,
@@ -29,7 +31,12 @@ class Message extends PureComponent {
       <div className={classes} onClick={renderArrow && onClick}>
         <div className={`${prefixCls}-header`}>{iconRender}</div>
         <div className={`${prefixCls}-body`}>{children}</div>
-        {!noFooter && <div className={`${prefixCls}-footer`}>{renderArrow}{renderCloseIcon}</div>}
+        {!noFooter && (
+        <div className={`${prefixCls}-footer`}>
+          {renderArrow}
+          {renderCloseIcon}
+        </div>
+        )}
       </div>
     );
   }

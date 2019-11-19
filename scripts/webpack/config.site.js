@@ -1,27 +1,37 @@
 const webpack = require('webpack');
 const path = require('path');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {
+  CleanWebpackPlugin,
+} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const {
+  BundleAnalyzerPlugin,
+} = require('webpack-bundle-analyzer');
 
 const config = require('./config.base.js');
 
-module.exports = Object.assign({}, config, {
+module.exports = {
   mode: 'production',
   cache: false,
   devtool: 'source-map',
   externals: {
-    lodash: 'window._',
-    jquery: 'jQuery',
-    echarts: 'echarts',
-    antd: 'antd',
-    moment: 'moment',
     'babel-polyfill': 'undefined',
     react: 'React',
     'react-dom': 'ReactDOM',
-    shineout: 'Shineout',
+  },
+  resolve: config.resolve,
+  entry: {
+    index: ['./examples/index.js'],
+    common: ['react', 'react-dom', 'react-router-dom'],
+  },
+  output: {
+    path: path.resolve(__dirname, '../../assets'),
+    chunkFilename: 'js/[name].[chunkhash:8].js',
+    filename: 'js/[name].[chunkhash:8].js',
+    publicPath: './',
   },
   module: {
     rules: [
@@ -52,9 +62,21 @@ module.exports = Object.assign({}, config, {
           },
         },
       }),
+      new OptimizeCssAssetsPlugin({
+        assetNameRegExp: /\.css$/g,
+        cssProcessor: require('cssnano'),
+        cssProcessorOptions: {
+          safe: true,
+          discardComments: {
+            removeAll: true,
+          },
+        },
+        canPrint: true,
+      }),
     ],
   },
   plugins: [
+    ...config.plugins,
     new webpack.DefinePlugin({
       process: {
         env: {
@@ -63,8 +85,9 @@ module.exports = Object.assign({}, config, {
       },
     }),
     new HtmlWebpackPlugin({
-      template: './examples/index.js',
-      filename: './examples/index.html',
+      template: './examples/index.html',
+      filename: 'index.html',
+      chunks: ['common', 'manifest', 'index'],
       alwaysWriteToDisk: true,
     }),
     new CleanWebpackPlugin(),
@@ -73,4 +96,4 @@ module.exports = Object.assign({}, config, {
       chunkFilename: '[name]-[hash].css',
     }),
   ].concat(process.env.ANALYSIS ? new BundleAnalyzerPlugin() : []),
-});
+};

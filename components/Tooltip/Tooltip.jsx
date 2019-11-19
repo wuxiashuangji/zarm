@@ -19,7 +19,9 @@ class Tooltip extends PureComponent {
   }
 
   show = (props) => {
-    const { prefixCls, className, visible, message } = props;
+    const {
+      prefixCls, className, visible, message,
+    } = props;
 
     const root = this.rootDom;
     if (visible) {
@@ -44,8 +46,9 @@ class Tooltip extends PureComponent {
     ReactDOM.render(
       <div className={cls} style={style} ref={(ele) => { this.tooltip = ele; }}>
         <div className={`${prefixCls}-inner`}>{message}</div>
-      </div>
-    , root);
+      </div>,
+      root
+    );
   }
 
   render() {

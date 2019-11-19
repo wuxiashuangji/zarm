@@ -6,7 +6,9 @@ import Spinner from '../Spinner';
 class Button extends PureComponent {
 
   render() {
-    const { prefixCls, className, theme, size, shape, icon, block, active, focus, bordered, disabled, loading, tabIndex, onClick, children, ...others } = this.props;
+    const {
+      prefixCls, className, theme, size, shape, icon, block, active, focus, bordered, disabled, loading, tabIndex, onClick, children, ...others
+    } = this.props;
 
     const classes = classnames(`${prefixCls}`, className, {
       [`theme-${theme}`]: !!theme,
@@ -26,7 +28,12 @@ class Button extends PureComponent {
     const childrenRender = children && <span>{children}</span>;
 
     const contentRender = (!!icon || loading)
-      ? <div className={`${prefixCls}-content`}>{iconRender}{childrenRender}</div>
+      ? (
+        <div className={`${prefixCls}-content`}>
+          {iconRender}
+          {childrenRender}
+        </div>
+      )
       : childrenRender;
 
     return (
@@ -35,7 +42,7 @@ class Button extends PureComponent {
         tabIndex={tabIndex}
         aria-disabled={disabled}
         className={classes}
-        onClick={e => !disabled && onClick(e)}
+        onClick={(e) => !disabled && onClick(e)}
         onTouchStart={() => {}}
         {...others}>
         {contentRender}

@@ -11,7 +11,9 @@ import changeImageSize from './changeImageSize';
  * @param maxHeight
  * @param callback
  */
-export default function createThumbnail({ file, quality, fileType, maxWidth, maxHeight }, callback) {
+export default function createThumbnail({
+  file, quality, fileType, maxWidth, maxHeight,
+}, callback) {
   const img = document.createElement('img');
 
   window.URL = window.URL || window.webkitURL;

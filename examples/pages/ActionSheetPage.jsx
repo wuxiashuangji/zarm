@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Container from '../components/Container';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Panel, Cell, ActionSheet, Button } from '../../components';
+import {
+  Panel, Cell, ActionSheet, Button,
+} from '../../components';
 
 class Page extends Component {
 
@@ -32,12 +34,16 @@ class Page extends Component {
               <Cell
                 description={
                   <Button size="xs" onClick={() => this.toggle('visible1')}>开启</Button>
-                }>普通</Cell>
+                }>
+普通
+              </Cell>
 
               <Cell
                 description={
                   <Button size="xs" onClick={() => this.toggle('visible2')}>开启</Button>
-                }>带取消操作</Cell>
+                }>
+带取消操作
+              </Cell>
             </Panel.Body>
           </Panel>
 

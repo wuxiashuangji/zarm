@@ -5,16 +5,16 @@ import Pull from '../index';
 
 describe('Pull', () => {
   const REFRESH_STATE = {
-    normal: 0,  // 普通
-    pull: 1,    // 下拉刷新（未满足刷新条件）
-    drop: 2,    // 释放立即刷新（满足刷新条件）
+    normal: 0, // 普通
+    pull: 1, // 下拉刷新（未满足刷新条件）
+    drop: 2, // 释放立即刷新（满足刷新条件）
     loading: 3, // 加载中
     success: 4, // 加载成功
     failure: 5, // 加载失败
   };
 
   const LOAD_STATE = {
-    normal: 0,  // 普通
+    normal: 0, // 普通
     abort: 1, // 中止
     loading: 2, // 加载中
     success: 3, // 加载成功
@@ -67,7 +67,10 @@ describe('Pull', () => {
           switch (actionState) {
             case REFRESH_STATE.pull:
               return (
-                <div>下拉刷新 {percent}</div>
+                <div>
+下拉刷新
+                  {percent}
+                </div>
               );
 
             case REFRESH_STATE.drop:

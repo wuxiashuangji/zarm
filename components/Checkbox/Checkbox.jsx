@@ -41,7 +41,9 @@ class Checkbox extends PureComponent {
   }
 
   render() {
-    const { prefixCls, className, theme, shape, size, type, value, block, disabled, id, children } = this.props;
+    const {
+      prefixCls, className, theme, shape, size, type, value, block, disabled, id, children,
+    } = this.props;
     const { checked } = this.state;
 
     const cls = classnames(`${prefixCls}`, className, {

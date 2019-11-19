@@ -51,7 +51,7 @@ class ColumnGroup extends Component {
             selectedValue={selectedValue[i]}
             displayMember={displayMember}
             valueMember={valueMember}
-            onValueChange={value => this.onValueChange(value, i)}
+            onValueChange={(value) => this.onValueChange(value, i)}
             {...col.props}
             />
         </div>

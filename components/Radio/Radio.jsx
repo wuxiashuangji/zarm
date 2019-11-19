@@ -43,7 +43,9 @@ class Radio extends PureComponent {
   }
 
   render() {
-    const { prefixCls, className, type, theme, shape, block, value, disabled, id, children } = this.props;
+    const {
+      prefixCls, className, type, theme, shape, block, value, disabled, id, children,
+    } = this.props;
     const { checked } = this.state;
 
     const cls = classnames(`${prefixCls}`, className, {

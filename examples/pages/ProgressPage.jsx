@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Container from '../components/Container';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Panel, Cell, Stepper, Progress, Picker } from '../../components';
+import {
+  Panel, Cell, Stepper, Progress, Picker,
+} from '../../components';
 import '../styles/pages/ProgressPage';
 
 class Page extends Component {
@@ -24,7 +26,8 @@ class Page extends Component {
             <Progress
               percent={this.state.percent}
               theme={this.state.theme}>
-              {this.state.percent}%
+              {this.state.percent}
+%
             </Progress>
           </div>
           <div className="progress">

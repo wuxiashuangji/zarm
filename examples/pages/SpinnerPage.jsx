@@ -16,15 +16,21 @@ class Page extends Component {
             <Panel.Body>
               <Cell description={
                 <Spinner />
-              }>普通</Cell>
+              }>
+普通
+              </Cell>
 
               <Cell description={
                 <Spinner className="rotate360" />
-              }>旋转动画</Cell>
+              }>
+旋转动画
+              </Cell>
 
               <Cell description={
                 <Spinner size="lg" />
-              }>大号</Cell>
+              }>
+大号
+              </Cell>
 
             </Panel.Body>
           </Panel>

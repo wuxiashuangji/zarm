@@ -5,7 +5,9 @@ import classnames from 'classnames';
 class PanelFooter extends PureComponent {
 
   render() {
-    const { prefixCls, className, title, more } = this.props;
+    const {
+      prefixCls, className, title, more,
+    } = this.props;
     const cls = classnames(`${prefixCls}-footer`, className);
 
     return (

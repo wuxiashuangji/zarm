@@ -5,7 +5,9 @@ import classnames from 'classnames';
 class PanelBody extends PureComponent {
 
   render() {
-    const { prefixCls, className, children, ...others } = this.props;
+    const {
+      prefixCls, className, children, ...others
+    } = this.props;
     const cls = classnames(`${prefixCls}-body`, className);
 
     return <div {...others} className={cls}>{children}</div>;

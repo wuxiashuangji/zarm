@@ -9,7 +9,7 @@ class Drag extends PureComponent {
   }
 
   onTouchStart = (event) => {
-    const dragState = this.dragState;
+    const { dragState } = this;
     const touch = event.touches[0];
 
     dragState.startX = touch.pageX;
@@ -21,7 +21,7 @@ class Drag extends PureComponent {
   }
 
   onTouchMove = (event) => {
-    const dragState = this.dragState;
+    const { dragState } = this;
     const touch = event.touches[0];
 
     const currentX = touch.pageX;
@@ -45,7 +45,7 @@ class Drag extends PureComponent {
   }
 
   onTouchEnd = (event) => {
-    const dragState = this.dragState;
+    const { dragState } = this;
     const { onDragEnd } = this.props;
     onDragEnd(event, dragState);
     this.dragState = {};

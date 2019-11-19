@@ -71,7 +71,9 @@ class Stepper extends PureComponent {
   }
 
   render() {
-    const { prefixCls, className, theme, size, shape, disabled, min, max } = this.props;
+    const {
+      prefixCls, className, theme, size, shape, disabled, min, max,
+    } = this.props;
     const { value } = this.state;
 
     const cls = classnames(`${prefixCls}`, className, {
@@ -95,7 +97,7 @@ class Stepper extends PureComponent {
     return (
       <span className={cls}>
         <span className={subCls} onClick={!subDisabled && this.onSubClick}><Icon type="minus" /></span>
-        <input className={`${prefixCls}-body`} type="tel" value={value} onChange={e => this.onInputChange(e.target.value)} onBlur={e => this.onInputBlur(e.target.value)} />
+        <input className={`${prefixCls}-body`} type="tel" value={value} onChange={(e) => this.onInputChange(e.target.value)} onBlur={(e) => this.onInputBlur(e.target.value)} />
         <span className={plusCls} onClick={!plusDisabled && this.onPlusClick}><Icon type="add" /></span>
       </span>
     );

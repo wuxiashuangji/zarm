@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Panel, Tab } from '../../components';
+import { Table, Panel } from '../../components';
 import Container from '../components/Container';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -9,7 +9,6 @@ class TabPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeIndex: 0,
       show: true,
     };
   }
@@ -102,45 +101,35 @@ class TabPage extends Component {
         className="tab-page">
         <div style={{ height: '20px' }} />
         <Header title="表格页 Table" />
-        <main >
+        <main>
           <Panel>
             <Panel.Header title="基本" />
             <Panel.Body>
-              {
-                <Table columns={columns1} data={info} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }}{...this.props} />
-              }
+              <Table columns={columns1} data={info} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }} {...this.props} />
             </Panel.Body>
           </Panel>
           <Panel>
             <Panel.Header title="表头合并" />
             <Panel.Body>
-              {
-                <Table columns={columns2} data={info} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }}{...this.props} />
-              }
+              <Table columns={columns2} data={info} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }} {...this.props} />
             </Panel.Body>
           </Panel>
           <Panel>
             <Panel.Header title="固定列" />
             <Panel.Body>
-              {
-                <Table columns={columns3} data={info} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }}{...this.props} />
-              }
+              <Table columns={columns3} data={info} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }} {...this.props} />
             </Panel.Body>
           </Panel>
           <Panel>
             <Panel.Header title="空数据" />
             <Panel.Body>
-              {
-                <Table columns={columns3} data={[]} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }}{...this.props} />
-              }
+              <Table columns={columns1} data={[]} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }} {...this.props} />
             </Panel.Body>
           </Panel>
           <Panel>
             <Panel.Header title="数据加载-loading" />
             <Panel.Body>
-              {
-                <Table columns={columns1} data={[]} keygen="id" loading style={{ width: '100%', maxHeight: '300px' }}{...this.props} />
-              }
+              <Table columns={columns1} data={[]} keygen="id" loading style={{ width: '100%', maxHeight: '300px' }} {...this.props} />
             </Panel.Body>
           </Panel>
         </main>

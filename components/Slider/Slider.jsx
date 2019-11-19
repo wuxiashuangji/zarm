@@ -32,7 +32,7 @@ class Slider extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
-      const value = nextProps.value;
+      const { value } = nextProps;
       const offset = this.getOffsetByValue(value);
       this.setState({ value, offset });
     }
@@ -122,7 +122,9 @@ class Slider extends PureComponent {
   }
 
   render() {
-    const { prefixCls, className, disabled, min, max } = this.props;
+    const {
+      prefixCls, className, disabled, min, max,
+    } = this.props;
     const { value, offset, tooltip } = this.state;
 
     const cls = classnames({

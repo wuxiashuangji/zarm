@@ -6,7 +6,9 @@ import Icon from '../Icon';
 class ModalHeader extends PureComponent {
 
   render() {
-    const { prefixCls, className, title, onClose, ...others } = this.props;
+    const {
+      prefixCls, className, title, onClose, ...others
+    } = this.props;
     const cls = classnames(`${prefixCls}-header`, className);
     const btnClose = onClose && <Icon type="wrong" className={`${prefixCls}-header-close`} onClick={onClose} />;
 
@@ -32,4 +34,3 @@ ModalHeader.defaultProps = {
 };
 
 export default ModalHeader;
-

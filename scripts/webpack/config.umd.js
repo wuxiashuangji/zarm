@@ -1,9 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const config = require('./config.base');
-const { version, name, author, repository } = require('../../package.json');
+const {
+  version, name, author, repository,
+} = require('../../package.json');
 
 const env = process.env.NODE_ENV;
 
@@ -15,7 +19,6 @@ const cssConfig = {
 if (env === 'production') {
   cssConfig.filename = '[name].min.css';
   config.plugins.push(new MiniCssExtractPlugin(cssConfig));
-
   config.plugins.push(new OptimizeCssAssetsPlugin({
     assetNameRegExp: /\.css$/g,
     cssProcessor: require('cssnano'),
@@ -28,16 +31,19 @@ if (env === 'production') {
   }));
 
   config.output.filename = '[name].min.js';
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-    },
-    output: {
-      comments: false,
-    },
-    sourceMap: true,
-    mangle: true,
-  }));
+  config.optimization.minimizer.push(
+    new UglifyJsPlugin({
+      sourceMap: true,
+      parallel: true,
+      cache: true,
+      uglifyOptions: {
+        compress: {
+          // pure_funcs: ['console.log', 'console.info'],
+        },
+      },
+    })
+  );
+  config.plugins.push(new BundleAnalyzerPlugin());
   config.plugins.push(new webpack.BannerPlugin(`
   ${name} v${version}
 
@@ -57,7 +63,9 @@ config.plugins.push(new webpack.DefinePlugin({
   __DEBUG__: false,
 }));
 
-module.exports = Object.assign({}, config, {
+module.exports = {
+  ...config,
+  mode: 'production',
   devtool: 'source-map',
   entry: {
     [name]: [
@@ -84,6 +92,11 @@ module.exports = Object.assign({}, config, {
       commonjs: 'react-dom',
       amd: 'react-dom',
     },
+    'prop-types': {
+      root: 'PropTypes',
+      commonjs2: 'prop-types',
+      commonjs: 'prop-types',
+      amd: 'prop-types',
+    },
   },
-});
-
+};

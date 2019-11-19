@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Container from '../components/Container';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Panel, Popup, Cell, Button } from '../../components';
+import {
+  Panel, Popup, Cell, Button,
+} from '../../components';
 import '../styles/pages/PopupPage';
 
 class Page extends Component {
@@ -41,22 +43,30 @@ class Page extends Component {
               <Cell
                 description={
                   <Button size="xs" onClick={() => this.open('popTop')}>开启</Button>
-                }>从上方弹出</Cell>
+                }>
+从上方弹出
+              </Cell>
 
               <Cell
                 description={
                   <Button size="xs" onClick={() => this.open('popBottom')}>开启</Button>
-                }>从下方弹出</Cell>
+                }>
+从下方弹出
+              </Cell>
 
               <Cell
                 description={
                   <Button size="xs" onClick={() => this.open('popLeft')}>开启</Button>
-                }>从左侧弹出</Cell>
+                }>
+从左侧弹出
+              </Cell>
 
               <Cell
                 description={
                   <Button size="xs" onClick={() => this.open('popRight')}>开启</Button>
-                }>从右侧弹出</Cell>
+                }>
+从右侧弹出
+              </Cell>
             </Panel.Body>
           </Panel>
 

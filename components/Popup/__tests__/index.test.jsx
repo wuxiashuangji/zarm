@@ -44,7 +44,9 @@ describe('Popup', () => {
         visible
         autoClose
         onMaskClick={onMaskClick}
-        onClose={onClose}>foo</Popup>
+        onClose={onClose}>
+foo
+      </Popup>
     );
     wrapper.setProps({ visible: true });
     jest.runAllTimers();
