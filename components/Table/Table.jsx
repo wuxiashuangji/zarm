@@ -95,7 +95,7 @@ class Table extends React.Component {
       scrollX: 0,
       scrollY: 0,
     }, () => {
-      isFunc() && callback();
+      isFunc(callback) && callback();
     });
   }
 
@@ -241,7 +241,7 @@ class Table extends React.Component {
      * @param attrValue
      * @returns {{findIndex: number | never, lastOneIndex: number, length: *, firstOneIndex: number}}
      */
-    const computedSelfSortByAttr = (array, computIndex, attr, attrValue) => {
+    const computedSelfSortByAttr = (array = [], attr, attrValue) => {
       const tmpArr = array.map((i, index) => {
         if (i[attr] === attrValue) {
           return index;
@@ -249,25 +249,24 @@ class Table extends React.Component {
         return null;
       });
       const arrNoNull = tmpArr.filter((i) => i != null);
-      const findIndex = arrNoNull.findIndex((i) => i === computIndex);
       return {
         length: tmpArr.filter((i) => i != null).length,
         firstOneIndex: arrNoNull.length > 0 ? arrNoNull[0] : -1,
         lastOneIndex: arrNoNull.length > 0 ? arrNoNull[arrNoNull.length - 1] : -1,
-        findIndex,
+        findIndex: (itemIndex) => arrNoNull.findIndex((i) => i === itemIndex), // 找到自身所在的排序后的位置index
       };
     };
     // 是否是最后一个左fixed的
-    const fixedLeft = (arr, computIndex) => computedSelfSortByAttr(arr, computIndex, 'fixed', 'left');
+    const fixedLeft = (arr = []) => computedSelfSortByAttr(arr, 'fixed', 'left');
     // 是否是第一个右fixed的
-    const fixefRight = (arr, computIndex) => computedSelfSortByAttr(arr, computIndex, 'fixed', 'right');
+    const fixefRight = (arr = []) => computedSelfSortByAttr(arr, 'fixed', 'right');
 
     // fixedRight 第一个的index
-    const firstFixedRightIndex = fixefRight(columns, 0).firstOneIndex;
+    const firstFixedRightIndex = fixefRight(columns).firstOneIndex;
     // fixedLeft 最后一个的index
-    const lastFixedLeftIndex = fixedLeft(columns, 0).lastOneIndex;
+    const lastFixedLeftIndex = fixedLeft(columns).lastOneIndex;
 
-    const computFixed = (index) => ((index <= lastFixedLeftIndex && lastFixedLeftIndex !== -1) ? 'left' : (index >= firstFixedRightIndex && firstFixedRightIndex !== -1 ? 'right' : undefined));
+    const computFixed = (index = 0) => ((index <= lastFixedLeftIndex && lastFixedLeftIndex !== -1) ? 'left' : (index >= firstFixedRightIndex && firstFixedRightIndex !== -1 ? 'right' : undefined));
 
     // 计算右fixed的列需要滚动距离
     const rightScroll = (tableHeaderWidth - wrapperWidth) + scrollX;
@@ -276,8 +275,8 @@ class Table extends React.Component {
       item.className || '',
       item.fixed === 'left' ? 'fixed-left' : '',
       item.fixed === 'right' ? 'fixed-right' : '',
-      fixefRight(arr, index).firstOneIndex === index ? 'fixed-right-first' : '',
-      fixedLeft(arr, index).lastOneIndex === index ? 'fixed-left-last' : '',
+      fixefRight(arr).firstOneIndex === index ? 'fixed-right-first' : '',
+      fixedLeft(arr).lastOneIndex === index ? 'fixed-left-last' : '',
       item.fixed === 'left' && scrollX !== 0 ? 'scrolling' : '',
       item.fixed === 'right' && rightScroll !== 0 ? 'scrolling' : '',
     ].join(' ').trim()
@@ -309,7 +308,6 @@ class Table extends React.Component {
             return groupItem;
           });
           tmpArray[item.group.length].push({
-
             ...item,
             colSpan: 1,
             rowSpan: maxRowsNum - item.group.length,
@@ -318,7 +316,6 @@ class Table extends React.Component {
           });
         } else {
           tmpArray[0].push({
-
             ...item,
             colSpan: 1,
             rowSpan: tmpArray.length,
@@ -335,7 +332,6 @@ class Table extends React.Component {
           const titleId = subItem.title + subItem.level;
           if (obj[titleId]) {
             obj[titleId] = {
-
               ...subItem,
               fixed: obj[titleId].fixed || subItem.fixed,
               colSpan: (Number(obj[titleId].colSpan || 0)) + 1,
@@ -471,15 +467,14 @@ Table.propTypes = {
   empty: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   loading: PropTypes.bool,
   style: PropTypes.shape(),
-  columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.shape()),
+  data: PropTypes.arrayOf(PropTypes.shape()),
   fixed: PropTypes.string,
   keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 };
 
 Table.defaultProps = {
   prefixCls: 'za-table',
-  theme: 'primary',
   data: [],
   columns: [],
   style: {},
@@ -488,4 +483,5 @@ Table.defaultProps = {
   className: '',
 };
 
+Table.displayName = 'za-table';
 export default Table;

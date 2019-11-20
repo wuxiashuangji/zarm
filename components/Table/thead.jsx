@@ -63,5 +63,5 @@ Thead.propTypes = {
   leftScroll: PropTypes.number,
   rightScroll: PropTypes.number,
 };
-
+Thead.displayName = 'table-head';
 export default Thead;

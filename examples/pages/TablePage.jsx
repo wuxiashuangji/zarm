@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Table, Panel } from '../../components';
 import Container from '../components/Container';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Table, Panel } from '../../components';
 import '../styles/pages/TablePage.scss';
 
 class TabPage extends Component {

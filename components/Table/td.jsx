@@ -22,7 +22,6 @@ class Td extends Component {
         className={[
           setClassName(columns, column, columnIndex),
         ].join(' ')}
-        data-x={rightScroll}
         style={
           assign(
             {},
@@ -60,5 +59,5 @@ Td.propTypes = {
   leftScroll: PropTypes.number,
   rightScroll: PropTypes.number,
 };
-
+Td.displayName = 'table-td';
 export default Td;
