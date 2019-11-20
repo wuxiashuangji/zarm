@@ -23,6 +23,8 @@ config.devServer = {
   noInfo: true,
   inline: true,
   hot: true,
+  useLocalIp: true,
+  open: true,
 };
 
 module.exports = config;
