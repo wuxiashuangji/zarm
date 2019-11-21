@@ -49,19 +49,17 @@ class Table extends React.Component {
   componentDidMount() {
     this.setTableWidth();
     this.tableWrapper.addEventListener('wheel', (e) => {
-      Table.preventHandler(e);
       this.wheelHandler(e);
-    });
+    }, false);
     this.tableWrapper.addEventListener('touchstart', (e) => {
       this.touchstartHandler(e);
-    }, true);
+    }, false);
     this.tableWrapper.addEventListener('touchmove', (e) => {
-      Table.preventHandler(e);
       this.touchmoveHandler(e);
-    }, true);
+    }, false);
     this.tableWrapper.addEventListener('touchend', (e) => {
       this.touchendHandler(e);
-    }, true);
+    }, false);
     window.addEventListener('resize', () => {
       requestAnimationFrame(() => {
         this.setTableWidth();
@@ -104,19 +102,33 @@ class Table extends React.Component {
       ? this[ele].getBoundingClientRect()[attr] : 0);
   }
 
+  get maxScrollHeight() {
+    const {
+      tableBodyHeight,
+      tableHeaderHeight,
+      wrapperHeight,
+    } = this.state;
+    return (tableBodyHeight + tableHeaderHeight) - wrapperHeight;
+  }
+
+  get maxScrollWidth() {
+    const {
+      tableHeaderWidth, wrapperWidth,
+    } = this.state;
+    return tableHeaderWidth - wrapperWidth;
+  }
+
   // wheel 处理
   wheelHandler(e) {
     const {
       pcSpeed,
       scrollX, scrollY,
-      tableBodyHeight,
-      tableHeaderWidth, tableHeaderHeight,
-      wrapperHeight, wrapperWidth,
     } = this.state;
     // 最大滚动区域
-    const maxScrollHeight = (tableBodyHeight + tableHeaderHeight) - wrapperHeight;
-    const maxScrollWidth = tableHeaderWidth - wrapperWidth;
-
+    const { maxScrollHeight, maxScrollWidth } = this;
+    if (maxScrollWidth || maxScrollWidth) {
+      Table.preventHandler(e);
+    }
     // scrollY 只能 < 0;
     if (scrollX <= 0 && maxScrollWidth > 0) {
       this.tempScrollX = this.tempScrollX - (e.deltaX / pcSpeed) <= 0
@@ -152,19 +164,19 @@ class Table extends React.Component {
   }
 
   // touchmove 触摸移动处理
-  touchmoveHandler($event) {
-    const touchEleDom = $event.touches[0];
+  touchmoveHandler(e) {
+    const touchEleDom = e.touches[0];
     const {
       mSpeed,
       touchInitX, touchInitY,
       scrollX, scrollY,
-      tableBodyHeight,
-      tableHeaderWidth, tableHeaderHeight,
-      wrapperHeight, wrapperWidth,
     } = this.state;
     // 最大滚动区域
-    const maxScrollHeight = (tableBodyHeight + tableHeaderHeight) - wrapperHeight;
-    const maxScrollWidth = tableHeaderWidth - wrapperWidth;
+    const { maxScrollHeight, maxScrollWidth } = this;
+    if (maxScrollWidth || maxScrollWidth) {
+      Table.preventHandler(e);
+    }
+
     // 滚动距离
     const scrollTmpX = (touchEleDom.pageX - touchInitX);
     const scrollTmpY = (touchEleDom.pageY - touchInitY);
@@ -213,7 +225,6 @@ class Table extends React.Component {
   bindElement(key, value) {
     this[key] = value;
   }
-
 
   render() {
     const {
@@ -483,5 +494,5 @@ Table.defaultProps = {
   className: '',
 };
 
-Table.displayName = 'za-table';
+Table.displayName = 'table';
 export default Table;

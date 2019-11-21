@@ -26,9 +26,32 @@ class TabPage extends Component {
         city: `广州-${index}`,
         index,
       }));
+    const columns0 = [
+      {
+        title: 'id', render: 'id',
+      },
+      {
+        title: '姓', render: 'firstName',
+      },
+      {
+        title: '名', render: 'lastName',
+      },
+      {
+        title: '昵称', render: () => 'nickname',
+      },
+      {
+        title: '市', render: 'city',
+      },
+      {
+        title: '工作', render: 'job',
+      },
+      {
+        title: '住址1', render: 'address',
+      },
+    ];
     const columns1 = [
       {
-        title: 'id', render: 'id', width: 50,
+        title: 'id', render: 'id', width: '10em',
       },
       {
         title: '姓', render: 'firstName', width: 100,
@@ -104,6 +127,12 @@ class TabPage extends Component {
         <main>
           <Panel>
             <Panel.Header title="基本" />
+            <Panel.Body>
+              <Table columns={columns0} data={info.slice(5)} keygen="id" loading={false} {...this.props} />
+            </Panel.Body>
+          </Panel>
+          <Panel>
+            <Panel.Header title="固定宽高内滚动" />
             <Panel.Body>
               <Table columns={columns1} data={info} keygen="id" loading={false} style={{ width: '100%', maxHeight: '300px' }} {...this.props} />
             </Panel.Body>
