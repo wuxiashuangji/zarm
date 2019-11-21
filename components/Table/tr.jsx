@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import assign from 'object-assign';
 import Td from './td';
-import '../../styles/components/Table.scss';
 
 class Tr extends React.Component {
   constructor(props) {

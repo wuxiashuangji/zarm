@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isArray, isFunc } from '../utils/is';
-import '../../styles/components/Table.scss';
 import Thead from './thead';
 import Td from './td';
 

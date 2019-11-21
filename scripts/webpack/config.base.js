@@ -2,6 +2,7 @@ const path = require('path');
 const sass = require('sass');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const packageJson = require('./../../package.json');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -51,7 +52,8 @@ module.exports = {
             options: {
               sourceMap: true,
               implementation: sass,
-              prependData: `$env: ${process.env.NODE_ENV}; $prefixCls: zorl-`,
+              // prependData: `$env: ${process.env.NODE_ENV}; $prefixCls: zorl-`,
+              prependData: `$prefixCls: ${packageJson.$prefixCls || 'za'};`,
             },
           },
         ],

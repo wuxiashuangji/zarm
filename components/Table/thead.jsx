@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import assign from 'object-assign';
 import { isFunc } from '../utils/is';
-import '../../styles/components/Table.scss';
-
 
 class Thead extends PureComponent {
 
